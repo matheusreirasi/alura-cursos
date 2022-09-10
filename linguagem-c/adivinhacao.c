@@ -1,13 +1,21 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
-#define TENTATIVAS_TOTAIS 5 //define é utilizado quando uma variável é utilizada somente uma vez, sendo assim chamada de constantes.
+
+#define TENTATIVAS_TOTAIS 10 //define é utilizado quando uma variável é utilizada somente uma vez, sendo assim chamada de constantes.
 
 int main() {
     printf("************************************\n");
     printf("* Bem Vindo ao jogo de adivinhação *\n");
     printf("************************************\n");
 
-    int numeroSecreto = 55;
+    int segundos = time(0);
+    srand(segundos);
+
+    int numeroDaRaizDaFuncaoRand = rand();
+
+    int numeroSecreto = (numeroDaRaizDaFuncaoRand % 100) + 1; //uso o resto da divisão por 100 para pegar os dois últimos valores desse resto e depois acrescento 1 pois quero que seja um número entre 1 e 100.
 
     int chute;
     int tentativas = 1;
@@ -43,7 +51,7 @@ int main() {
         }
         tentativas += 1;
 
-        float pontosPerdidos = (chute - numeroSecreto) / 2.0;
+        float pontosPerdidos = abs(chute - numeroSecreto) / 2.0;
         pontos -= pontosPerdidos;
     }
     printf("Fim de jogo\n");
@@ -52,3 +60,8 @@ int main() {
 
     return 0;
 }
+
+
+/*
+* Para usar a função abs() é necessário incluir a biblioteca stdlib.h
+*/
