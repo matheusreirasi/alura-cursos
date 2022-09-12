@@ -34,10 +34,16 @@ def jogar(): ## em javascript, isso seria uma function
 
         print(palavra)
 
+        if (soma_de_palavras == len(palavra_secreta)):
+            print("Você acertou")
+            acertou = True
+
         if (tentativas == 6):
             enforcou = True
             print("Você foi enforcado.")
-            
 
+#        enforcou = tentativas == 6 é igual ao código de cima, porém sem a mensagem
+
+        
 if (__name__ == "__main__"):
     jogar()
