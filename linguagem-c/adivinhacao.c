@@ -12,12 +12,11 @@ int main() {
 
     int segundos = time(0);
     srand(segundos);
-
     int numeroDaRaizDaFuncaoRand = rand();
 
     int numeroSecreto = (numeroDaRaizDaFuncaoRand % 100) + 1; //uso o resto da divisão por 100 para pegar os dois últimos valores desse resto e depois acrescento 1 pois quero que seja um número entre 1 e 100.
 
-    int chute;
+    unsigned int chute;
     int tentativas = 1;
     int jogando = 0;
     float pontos = 1000;
@@ -26,8 +25,8 @@ int main() {
 
         printf("Tentativa %d de %d\n", tentativas, TENTATIVAS_TOTAIS);
         printf("Qual é o seu chute?\n");
-        scanf("%d", &chute);
-        printf("Seu chute foi %d \n", chute);
+        scanf("%u", &chute);
+        printf("Seu chute foi %u \n", chute);
 
         if(chute < 1 || chute > 100){
             printf("Você deve digitar um número entre 1 e 100\n");
