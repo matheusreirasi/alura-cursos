@@ -1,0 +1,10 @@
+1- Utilizar "type=time" na tag input faz aparecer o menuzinho quando clica no relógio. Usar esse type é o que faz aparecer também o reloginho.
+
+2- Para evitar de ter conflitos entre classNames no diferentes arquivos tsx é utilizado aqui "typescript-plugin-css-modules". Quando essa dependência é utilizada, o arquivo scss tem que ser alterado para 
+"style.module.scss" pois ele não é mais um arquivo de estilo, mas sim um módulo.
+O classname que fizer uso desse módulo deverá estar entre chaves e não em volta de aspas como normalmente acontece. Além disso o arquivo scss é importado como se fosse um módulo typescript, ficando assim: 
+"import style from './App.module.scss'"
+Quando for usar uma classe para estilizar determinada tag HTML será usado "className={style.AppStyle}"
+Essa característica de ser um className único ocorre porque quando o arquivo scss é transformado em módulo é gerado um pequeno hash no className passado na tag HTML do tsx, isso é possível ser visto no console de desenvolvimento dos navegadores.
+
+3- Olhar a aula refatorando a lista que está na parte 4 do curso. Nessa aula ele cria uma função Lista contendo props para armazenar tempo e tarefa, no entanto eu ainda não entendi o por que precisar criar outra função se eu posso fazer dentro de Lista.tsx
