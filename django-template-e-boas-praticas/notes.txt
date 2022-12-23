@@ -1,0 +1,95 @@
+#### INICIALIZANDO O DESENVOLVIMENTO ####
+
+
+O virtual env é uma ferramenta para criar um ambiente virtualizado e isolar todas as dependências de um projeto.
+
+Antes de ativar o virtualenv no windows é necessário alterar a política de execução no powershell que desabilita scripts do tipo ".ps1xml" ".psm1"  e ".ps1" de rodarem. Para habilitar o script do virtualenv tenho que alterar a permissão do usuário: "Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -scope CurrentUser"
+Não esquecer de alterar a política quando terminar
+
+Após ter alterado a permissão do usuário é só criar o ambiente virtualizado e rodar "virtualenv venv"
+
+Para rodar scripts é só digitar "venv/Scripts/Activate"
+Em outros SO's é só digitar "source venv/bin/activate"
+
+Para desativar o ambiente digite: "deactivate"
+
+
+O comando "pip freeze" lista todas as dependências contidas no arquivo
+
+Para começar a usar o django digite: "django-admin startproject setup ." e serão instalados os arquivos de configuração básicos
+
+Após isso utilize o comando "python manage.py runserver" para inicializar a aplicação e poderá ser visto no navegador
+
+"startproject" serve para criar todo o projeto, com esse comando eu inicio as configurações e coloco tudo que é relacionado a ele dentro. Depois de "startproject" eu uso "startapp" para criar pequenas aplicações dentro do projeto. Ou seja, primeiro "startproject" com django depois "startapp" com python.
+
+Sempre que for criado um novo app deve-se colocar a aplicação no settings.py da pasta setup
+
+Para utilizar arquivos estáticos no Django tem que ser feita toda a configuração citada no tópico BOAS PRÁTICAS e depois rodar o comando "python manage.py collectstatic" que serve para pegar todos os arquivos estáticos e endereçar para o Django para ele realmente saber onde estão esses arquivos e no momento que realizar o deploy a aplicação saber onde estão esses arquivos.
+
+Quando for realizado o comando "python manage.py collectstatic" eu tenho que colocar no topo de todos os arquivos HTML o seguinte código: "{% load static %}"
+Agora sempre que eu importar algum arquivo para esse HTML (como o CSS por exemplo) eu mudo o caminho colocando "static" sempre antes do caminho padrão do arquivo que eu quero que seja carregado.
+Usando o CSS como exemplo o caminho ficaria assim: " "{% static '/styles/style.css' %}" "
+Eu tenho que colocar aspas em volta das chaves, não é o mesmo caso que ocorre com load static usado na primeira linha do código HTML.
+
+Para evitar de ter muitas repetições no código é criado um HTML básico com a tag head, body e html que são os que sempre se repetem e dentro do body eu passo todo o conteúdo que será renderizado. Para renderizar algo no body de base.html eu uso código python "block content" e "endblock" dentro das chaves.
+
+Da mesma forma que eu crio componetes em React, eu também crio usando Django, porém aqui seu nome é partials.
+Para fazer isso eu crio uma pasta partials e dentro desta pasta eu coloco cada componente que eu quero criar, seu nome sempre irá começar com underline.
+O componente criado será renderizado no arquivo base.html e dentro do body terá a função python "include" seguido do caminho do partials que será renderizado, tudo isso dentro das chaves
+
+Para acessar a página de admin eu tenho antes que criar um usuário. Para isso eu rodo o comando "python manage.py createsuperuser" 
+No entanto eu só posso criar o super usuário depois que aplicar as migrations. Isso faz sentido pois como não tem banco de dados, não faz sentido eu querer acessar algo.
+
+
+
+
+#### BOAS PRÁTICAS ####
+1- Quando criar algo com Django é recomendável criar um arquivo requirements.txt que funciona como um package.json onde contêm as dependências do projeto. Para isso digite: pip freeze > requirements.txt
+Esse arquivo não é atualizado automaticamente como o package.json, então sempre que for instalada alguma dependência eu devo utilizar o comando citado.
+
+2- Quando criar o projeto com Django é melhor usar "django-admin startproject setup ."
+Esse comando cria o projeto e a primeira pasta que é criada é uma pasta contendo configurações básicas da aplicação, por isso é mais elegante criar a aplicação com o nome de setup/config ou algo relacionado para identificar com mais facilidade os arquivos. O ponto depois do nome é para impedir que se crie outra pasta com o mesmo nome passado depois do comando startproject.
+Geralmente as pessoas criam o projeto com o nome do próprio projeto, porém quando é criado desse jeito convencional, o projeto fica todo dentro do arquivo que contém o nome do projeto e depois cria um subarquivo com o nome do projeto de novo, contendo todos os arquivos de configuração. Por isso é melhor criar o projeto e escrever setup como nome e colocar ponto no final, que é para evitar de criar uma subpasta
+
+3- Igual como ocorre no javascript, eu tenho que criar um arquivo para os parâmetros de desenvolvimento e o nome é o mesmo(.env)
+Aqui eu to usando "pip install python-dotenv" para manipular as variáveis. Não lembro de usar algo parecido no javascript.
+Lá no arquivo .env eu coloco o nome da variável em capslock -da mesma forma que é feito no javascript- porém ele não recebe uma string -como eu faço no javascript-, somente copio e colo a chave na variável. 
+
+4- No arquivo settings.py dentro da pasta setup está a configuração dos arquivos estáticos (CSS, javascript e imagens). Duas dessas confirações para esse tipo de arquivo são "STATICFILES_DIRS" onde são salvos todos os arquivos estáticos que EU adiciono no projeto e a configuração de "STATIC_ROOT" que é o caminho onde o python vai coletar esses arquivos estáticos para fazer a inplantação para que ele faça a manipulação de onde estão estes arquivos estáticos. Essa segunda parte eu não entedi NADA
+
+
+
+
+#### DIFERENTES VERSÕES DE PYTHON ####
+
+É possível usar diferentes versões do python para criar ambientes de desenvolvimento. Para isso eu crio o ambiente normalmente, o python usado será o instalado globalmente, e depois coloco o caminho do arquivo python que eu quero que rode a aplicação.
+Como a criação do ambiente é a primeira coisa a ser feita, eu tenho que alterar a versão do python antes de fazer qualquer outra coisa
+    virtualenv -p C:\Users\Matheus\AppData\Local\Programs\Python\Python310\python.exe venv\
+
+
+O último parâmetro será o caminho do ambiente de desenvolvimento que já está criado. Já no primeiro parâmetro eu tenho que colocar também o arquivo .exe, antes eu não tinha colocado o programa executável e não tinha funcionado
+
+
+Outro problema para se prestar atenção é com a instalação do Django, pois geralmente é instalado o Django globalmente, porém aqui eu tenho que inicializar o ambiente com o comando "venv/Scripts/Activate" e depois instalar o Django. Se eu instalar o Django sem ativar o comando ele não irá funcionar no ambiente criado, somente no arquivo python global.
+O mesmo vale para qualquer outra dependência que eu queria utilizar no projeto.
+
+
+
+
+
+
+#### GITHUB ####
+
+Eu posso começar criando o código sem problemas, depois dar um git init e fazer todo o procedimento padrão. No entando eu tenho que ir no github e criar o repositório. Quando eu finalizar o código e quiser colocá-lo no meu repo eu tenho que dar o git push usando o comando que é passado no site do github quando foi criado o repo.
+
+
+
+
+
+#### BIZUS PESSOAIS ####
+
+1- A ordem básica de configuração do projeto é: settings > urls > views
+
+2- Durante a aula a recomendação passada foi colocar arquivos estáticos (CSS, javascript e imagens) dentro da pasta setup. Eu não gostei muito dessa organização não. Por que não colocar dentro da pasta template já que também é um template???
+
+3- A utilização de links em projetos realizados com Django são bem diferentes. Quando eu colocar algum link para outro site eu tenho que colocar antes no path do arquivo urls.py dentro da pasta setup um name que serve para abrir a página citada no href da tag <a> do HTML. Sem esse name no path o link aberto é algum arquivo HTML, o mesmo contido na função que está nesse mesmo path do arquivo urls.py
