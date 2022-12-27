@@ -1,15 +1,18 @@
 import React from "react";
 import style from "./Botao.module.scss"
 
-class Botao extends React.Component <{text: string, type?: "button" | "submit" | "reset" | undefined}> {
-    render(): React.ReactNode { //Não tem React.ReactNode no vídeo da aula, somente o render()
-        const { type = "button"} = this.props
-        return(
-            <button type = {type} className={style.botao}>
-                {this.props.text}
-            </button>
-        )
-    }
+interface Props {
+    text: string,
+    type?: "button" | "submit" | "reset" | undefined,
+    onClick?:()=> void,
+}
+
+const Botao = ({onClick, type, text}: Props)=> {
+    return(
+        <button type = {type} className = {style.botao} onClick = {onClick}>
+            {text}
+        </button>
+    )
 }
 
 export default Botao
