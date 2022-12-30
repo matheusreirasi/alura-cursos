@@ -1,0 +1,4 @@
+Pacotes básicos para começar o servidor:
+    1- Nodemon para poder ver algo no navegador sempre que for alterado algo no código. Instalada como dependência de desenvolvimento, ou seja, não vai para a produção
+    2- Configuração do script do package para rodar o nodemon quando iniciar o server. "dev": "nodemon server.js"
+    3- const http = require("http") para poder criar o server. Como eu uso o express, eu realmente não preciso disso, somente crio as requisições no arquivo app e exporto o objeto app para o server.
