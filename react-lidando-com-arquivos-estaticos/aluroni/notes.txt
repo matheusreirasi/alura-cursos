@@ -1,0 +1,19 @@
+1-
+A estilização é feita com CSS Modules e sass. O comando é: npm install -D typescript-plugin-css-modules sass
+Isso serve para baixar os dois para a linguagem typescript. Eles são instalados em dependência de desenvolvimento pois ele é executado somente durante o tempo de execução que ele é realmente utilizado. O React transforma automaticamente CSS sass em CSS normal. Por isso não é instalado como uma dependência de normal (de produção) e sim como uma dependência de desenvolvimento.
+Na criação do module css tem que colocar o nome do arquivo em maiúsculo pois quando ocorre o build pelo React, ele sabe que se trata de módulo e o resto do tipo que é .module.scss para gerar um hash para esse tipo de arquivo. É através de hash e o próprio nome do módulo que faz esse estilo ser único.
+
+2-
+Normalmente basta passar o caminho do arquivo estático que será utilizado na aplicação como no caso do logo do Aluroni, no entanto não aparece a imagem no navegador. Esse problema acontece porque durante o build o React não reconhece que o caminho passado é o caminho de um arquivo estático e o webpack (responsável pelo build) não entende que o src (no caso da tag img) é um arquivo, mas entende que é uma string. Por isso é necessário importar a imagem lá em cima do código e tratá-lo como um objeto.
+Esse método citado acima transforma a imagem em uma tag imagem no HTML, para realmente usar como SVG ele deve ser importado como um React Component e depois colocado no código como um componente:
+    import {ReactComponent as Logo} from "../../assets/logo.svg"
+Firefox não aparece uma imagem pequena, Chrome aparece uma imagem "quebrada" pequena.
+
+3-
+Eu baixe normalize.css porque ele por padrão não funciona nem usando o indicado na documentação do create-react-app.
+
+4-
+É possível criar um arquivo de variáveis CSS para utilizar diversas variáveis criadas. Para isso basta criar a pasta styles e colocar underline antes do nome do arquivo, isso é uma prática dos arquivos SCSS. Isso faz com que alguns pós-processadores ignore esses arquivos.
+
+INFORMAÇÃO BRABA-
+Quando o script "npm start" é executado ele automaticamente gera uma pasta build, no entanto ele é alocada em memória e roda no navegador. O comando "npm build" gera o build "físico" e assim é possível ver melhor o que ele faz.
