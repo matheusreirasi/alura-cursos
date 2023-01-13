@@ -4,3 +4,4 @@ Pacotes básicos para começar o servidor:
     3- const http = require("http") para poder criar o server. Como eu uso o express, eu realmente não preciso disso, somente crio as requisições no arquivo app e exporto o objeto app para o server.
 
     Testando 
+    Testando 2
