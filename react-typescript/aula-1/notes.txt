@@ -8,3 +8,5 @@ Quando for usar uma classe para estilizar determinada tag HTML será usado "clas
 Essa característica de ser um className único ocorre porque quando o arquivo scss é transformado em módulo é gerado um pequeno hash no className passado na tag HTML do tsx, isso é possível ser visto no console de desenvolvimento dos navegadores.
 
 3- Olhar a aula refatorando a lista que está na parte 4 do curso. Nessa aula ele cria uma função Lista contendo props para armazenar tempo e tarefa, no entanto eu ainda não entendi o por que precisar criar outra função se eu posso fazer dentro de Lista.tsx
+
+4- Depois que eu baixei no Pop_os o tempo veio com o padrão 12h, sendo dividido em AM e PM, além de o horário já começar como 12 horas. Acho que isso acontece porque está seguindo o padrão do fuso-horário da máquina.
