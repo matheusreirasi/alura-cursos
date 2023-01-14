@@ -15,5 +15,8 @@ Eu baixe normalize.css porque ele por padrão não funciona nem usando o indicad
 4-
 É possível criar um arquivo de variáveis CSS para utilizar diversas variáveis criadas. Para isso basta criar a pasta styles e colocar underline antes do nome do arquivo, isso é uma prática dos arquivos SCSS. Isso faz com que alguns pós-processadores ignore esses arquivos.
 
+5- styles["filtros__filtro--ativo"]
+Não foi possível usar ponto como normalmente é feito devido ao --ativo, por isso o colchetes para substituir o ponto. Não sei ao certo o motivo disso acontecer
+
 INFORMAÇÃO BRABA-
 Quando o script "npm start" é executado ele automaticamente gera uma pasta build, no entanto ele é alocada em memória e roda no navegador. O comando "npm build" gera o build "físico" e assim é possível ver melhor o que ele faz.
