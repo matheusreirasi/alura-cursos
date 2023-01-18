@@ -18,5 +18,22 @@ Eu baixe normalize.css porque ele por padrão não funciona nem usando o indicad
 5- styles["filtros__filtro--ativo"]
 Não foi possível usar ponto como normalmente é feito devido ao --ativo, por isso o colchetes para substituir o ponto. Não sei ao certo o motivo disso acontecer
 
+6- No json de opções possui values que possuem duas palavras (qtd_pessoas). O ideal nesse arquivo json é que não possua palavras maiúsculas pois seu key é passado como um state para o React
+
+7-      const nomeOrdenador = ordenador && opcoes.find(opcao => opcao.value === ordenador)?.nome
+    Esse código do ordenador serve para poder renderizar sem problemas o nome do ordenador selecionado, antes disso era renderizado o value do opcoes.json. A interrogação antes do ".nome" serve para quando não encontrar alguma opção selecionada ele não retornar erro.
+    A tradução do código é: se houver ordenador (ou seja, se for true) percorra todos os objetos, se encontrar algum value de opcoes exatamente igual ao valor do ordenador então retorne o nome da opcao.
+
+8-      type Props = typeof cardapio[0]
+    Esse código serve para substituir o interface. Ele é bem útil quando quero criar um tipo para alguma propriedade e essa propriedade contém muitas variáveis. Geralmente usado como props para um componente do React. Se eu não colocar o colchetes no final do cardapio ele retorna o tipo array e não como um objeto json.
+
+9- O caminho da imagem de cada prato no arquivo itens.json está apontado para uma pasta fora do arquivo src, está na pasta public. Isso ocorre porque quando se trata de um arquivo dinâmico, o webpack não consegue identificar que o caminho passado na tag <img/> é um caminho para um arquivo de imagem, entende somente que é uma string. Para funcionar corretamente a imagem tem que ser passada para a pasta public para gerar um build da imagem que será renderizada.
+
+10- O comando "npm run build" serve para gerar os arquivos que são enviados para produção. Por isso é importante usar esse comando antes de lançar o site, para ter certeza de que todos os arquivos estão sendo exportados corretamente.
+
+11- No index.tsx de Itens, na linha 23, eu substituí cardapio.map() por lista.map(). Isso porque quando alterar algo no filtro, renderizar somente o que está na lista e não todo o cardápio. E na linha 18, a nova lista é criada a partir do cardápio e não da lista, isso é para evitar que renderize somente itens que foram filtrado antes.
+
+12- A função ordenar do index do Itens recebe o tipo array porque eu deixei o cardápio sem o colchetes no final. Fiz isso pois quero que retorno uma dependência de array
+
 INFORMAÇÃO BRABA-
 Quando o script "npm start" é executado ele automaticamente gera uma pasta build, no entanto ele é alocada em memória e roda no navegador. O comando "npm build" gera o build "físico" e assim é possível ver melhor o que ele faz.
