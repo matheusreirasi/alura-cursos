@@ -5,8 +5,8 @@ import styles from "./Filtro.module.scss"
 type IOpcao = typeof filtros[0]//Uma alternativa ao interface
 
 interface Props {
-    filtro : Number | null
-    setFiltro: Dispatch<SetStateAction<Number | null>>
+    filtro : number | null
+    setFiltro: Dispatch<SetStateAction<number | null>>
 }
 
 export const Filtro = ({filtro, setFiltro}:Props) => {
