@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
-mongoose.set('strictQuery', true)
-mongoose.connect("mongodb://127.0.0.1:27017/alura-node")
+mongoose.set('strictQuery', false)
+mongoose.connect("mongodb+srv://usuario:123@alura.aqe9eco.mongodb.net/livraria-alura?retryWrites=true&w=majority")
 
 const db = mongoose.connection
 
