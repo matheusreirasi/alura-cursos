@@ -1,5 +1,5 @@
 import app from "./src/app.js"
-const port = process.env.PORT || 3000 //ou a porta do ambiente de produção ou a porta de desenvolvimento
+const port = process.env.PORT || 8080 //ou a porta do ambiente de produção ou a porta de desenvolvimento
 
 
 app.listen(port, () => {
