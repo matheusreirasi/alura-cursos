@@ -3,5 +3,23 @@ Pacotes básicos para começar o servidor:
     2- Configuração do script do package para rodar o nodemon quando iniciar o server. "dev": "nodemon server.js"
     3- const http = require("http") para poder criar o server. Como eu uso o express, eu realmente não preciso disso, somente crio as requisições no arquivo app e exporto o objeto app para o server.
 
-    Testando 
-    Testando 2
+1- O servidor do mongodb não funciona no Firefox nem no insomnia, somente no Chrome.
+
+2- Para a conexão funcionar corretamente com o banco de dados tenho que colocar o nome do database no final do link de conexão que o mongodb entrega, no caso desse projeto é livraria-alura. Olhar o arquivo db.js
+
+3- A ordem de hierarquia no MongoDb é Empresa > Projeto > Cluster > Banco de dados > Collections. Esses são os passos para a criação dos bancos de dados e por último é a tabela que há no banco de dados. Antes de criar um banco de dados eu tenho que criar um cluster que é uma máquina virtual localizado em algum servidor, AWS, Azure ou Google.
+No caso desse curso a ordem é Alura > API-Node-Express > Alura > livraria-alura > livros
+
+4- A partir da versão 4.2 do MongoDb é preciso habilitar o TLS/SSL. Para isso tem que passar para o TLS um certificado encriptado. É possível pegar um certificado gratuitamente assinado pelo Let's Encrypt usando Certbot ETF, no entanto eles são auto-assinados. Esses tipos de certificados conseguem encriptar comunicação mas não proveem validação da identidade do servidor.
+
+5- É uma prática comum quando criar um modelo de arquivos para o banco de dados criar esse arquivo com o nome que ele irá representar no database com sua terminação no singular. Olhar a pasta models.
+
+6- Uma breve explicação sobre MongoDb.
+Ele é orientado a documentos e é armazenado em documentos BSON(Binary Json).
+Na construção do JSON ou BSON, precisamos entender alguns conceitos importantes sobre sua estrutura de dados. O primeiro conceito é a definição de Entidades e Atributos.
+Imagina uma plataforma de entrega de refeições, ela usa um aplicativo para conectar clientes com restaurantes e entregadores, cada público desses serão usuários que precisarão ter um cadastro no banco de dados da plataforma. Podemos dizer que os clientes, restaurantes e entregadores, são as Entidades.
+Cada entidade terá um cadastro a ser preenchido com dados importantes. Mas quais dados são importantes para solicitarmos? Esses dados requeridos, chamamos de Atributos.
+https://cursos.alura.com.br/course/nodejs-api-rest-express-mongodb/task/103638
+
+7- A organização dos arquivos está parecida com a Oppia Foundation onde contém uma pasta controllers que possui classes com funções para realizar algo e encaminha essa função para algum lugar que no caso do curso é a pasta routes. Nessa pasta contém um arquivo da rota de livro com os comandos HTTP, seu caminho da url e a função recebida do controller e outro arquivo index que recebe todas as rotas criadas e a envia para o app.js onde lá ele recebe as funções do express.
+Dentro da pasta routes contém os comandos HTTP.
