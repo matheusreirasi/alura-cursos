@@ -1,0 +1,1 @@
+1- A tag <section> por padrão possui o display block, isso faz com que o conteúdo mostrado no site fique igual a formatação usada durante a programação. Se o código foi feito um encima do outro será mostrado exatamente igual no site.
