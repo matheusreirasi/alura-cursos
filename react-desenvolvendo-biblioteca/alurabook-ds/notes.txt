@@ -1,0 +1,5 @@
+1- Somente foi possível baixar o tsdx com storybook na versão 14.20.0 do node
+
+2- Para rodar o storybook o comando é "npm run storybook"
+
+3- Aparentemente não pode ter comentários ao lado do código, somente embaixo.
