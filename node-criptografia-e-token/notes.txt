@@ -1,0 +1,17 @@
+1- Um dos primeiros métodos de criptografia foi a cifra de césar usada por Júlio César onde consiste pegar uma mensagem e deslocá-la alguns caracteres para a direita.
+
+2- A função de hash utilizada em criptografia mistura informações de um documento e as envia para alguém, os caracteres gerados pela função de hash não podem ser transformados de novo para a mensagem original.
+Algumas características dos hashes:
+    *Sem colisões: um hash gerado por uma palavra não pode ser gerado futuramente de novo para qualquer outra mensagem
+    *Tamanho fixo: todas tem um tamanho fixo independentemente do tamanho da mensagem que foi criptografada. Isso é para evitar que se tenha alguma ideia de qual seja a mensagem original
+    *Demore um pouco para ser realizado: dependendo da aplicação que esteja sendo desenvolvida, é necessário que haja alguma complexidade nesse hash pois atualmente existem equipamentos que conseguem descobrir qual palavra foi utilizada.
+
+3- Por medidas de segurança, quando um usuário criar uma senha é melhor armazenar o hash do usuário ao invés da senha, isso de acordo com a ALURA. No entanto como os apps de banco sabem se eu já utilizei a senha quando eu tento trocar de senha. A explicação para isso é uma comparação entre a hash gerada no momento da autenticação e a hash guardada no banco de dados. No entanto ainda acho que não explica o caso dos bancos
+
+4- A biblioteca crypto já é padrão do javascript, não sendo necessário baixar nada, somente importar
+
+5- https://cursos.alura.com.br/course/nodejs-criptografia-tokens-jwt/task/107362
+
+6- O método sal no hash adiciona mais um componente no hash que gera um hash totalmente diferente do hash normalmente utilizado, dificultando assim a utilização de rainbow table. 
+
+7- Para poder enviar e receber informações entre usuários um dos métodos utilizados é a encriptação simétrica onde a mensagem é enviada encriptada porém quem envia e quem recebe possui uma chave compartilhada utilizada para ler a informação, sem ela a mensagem é somente um monte de letras e números.
