@@ -3,3 +3,11 @@
 2- Para rodar o storybook o comando é "npm run storybook"
 
 3- Aparentemente não pode ter comentários ao lado do código, somente embaixo.
+
+4- No início de cada componente há um prefixo chamado Ab de Alura Books. Isso é para evitar conflitos no caso de alguém usar a biblioteca criada e também já ter algum componente com o mesmo nome ou nome parecido.
+
+5- No curso foi utilizado o styled components dentro do arquivo tsx, no entanto eu ainda prefiro criar um arquivo somente com as estilizações. Para utilizar o styled components é só importá-lo e colocar ponto junto com a tag HTML que ele renderiza(talvez seja possível também colocar um id ou uma class de uma tag HTML).
+
+6- No package.json da pasta example a dependência parcel aceitava a versão atual e posteriores, eu removi a acento circunflexo por recomendação do curso para aceitar somente aquela versão.
+
+7- É na pasta example que eu faço os testes dos componentes criados para ver se eles estão funcionando corretamente. Para isso eu tenho que dar um build no projeto "npm run build", mudar para a pasta example quando terminar o build e instalar as dependências da pasta com "npm install". Feito isso eu coloco no index.tsx da pasta example o componente que eu quero testar, por padrão o componente que aparece lá é o <Thing/> que está na pasta stories, e utilizo o comando "npm run start" dentro da pasta example. Só lembrando que eu faço o teste é com o componente que está na pasta stories e não com o componente que está na pasta src.
