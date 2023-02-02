@@ -12,7 +12,7 @@ interface Props {
 const Formulario = ({setTarefas}: Props) => {
 
     const [tarefa, setTarefa] = useState("")
-    const [tempo, setTempo] = useState("00:00")
+    const [tempo, setTempo] = useState("00:00:00")
 
     const adicionarTarefa = (evento: React.FormEvent <HTMLFormElement>) => {
         evento.preventDefault()
@@ -26,7 +26,7 @@ const Formulario = ({setTarefas}: Props) => {
             }
         ])
         setTarefa("")
-        setTempo("00:00") //isso faz o formulário ser resetado quando algo é adicionado
+        setTempo("00:00:00") //isso faz o formulário ser resetado quando algo é adicionado
     }
 
     return (
