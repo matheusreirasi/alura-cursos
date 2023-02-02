@@ -14,4 +14,8 @@ Algumas características dos hashes:
 
 6- O método sal no hash adiciona mais um componente no hash que gera um hash totalmente diferente do hash normalmente utilizado, dificultando assim a utilização de rainbow table. 
 
-7- Para poder enviar e receber informações entre usuários um dos métodos utilizados é a encriptação simétrica onde a mensagem é enviada encriptada porém quem envia e quem recebe possui uma chave compartilhada utilizada para ler a informação, sem ela a mensagem é somente um monte de letras e números.
+7- Para poder enviar e receber informações entre usuários um dos métodos utilizados é a encriptação simétrica onde a mensagem enviada é encriptada porém quem envia e quem recebe possui uma chave compartilhada utilizada para ler a informação, sem ela a mensagem é somente um monte de letras e números.
+
+8- No arquivo encriptacaoSimetrica.js eu tenho que gerar o tamanho correto de bytes para cada tipo de encriptação utilizada. Algoritmo de encriptação aes-256-ocb e aes-256-ccm não funcionaram com a quantidade de bytes que eu utilizei acima, somente o aes-256-gcm que funcionou com a quantidade de bytes utilizadas (32 bytes para a chave e 16 para a VI). No entanto usar aes-256-gcm não serviu para decifrar a palavra, somente o algoritmo aes256 funcionou para os dois, tanto para cifrar quanto para decifrar a mensagem.
+
+9- Não entendi ao certo da necessidade de colocar .final na variável mensagemCifrada e mensagemDecifrada. Se eu colocar sem o .final ocorre a encriptação da mensagem, porém ela fica bem mais reduzida e a mensagem decifrada não é possível decifrar.
