@@ -2,7 +2,7 @@
 [My Alura's profile](https://cursos.alura.com.br/vitrinedev/matheus-reirasi)
 
 <p>
-    Alura is one of the greatest technology education platform on Brazil and its mission is to change lives and careers.
+    Alura is one of the greatest technology education platform in Brazil and its mission is to change lives and careers.
 </p>
 <p>
     This repository contains some exercises made on platform. <br>
