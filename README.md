@@ -15,7 +15,7 @@
 ### Aluroni
 * Aluroni it's an website that follows SPA concepts and its goals is to sell Italian dishes. Made with React and Typescript and styled using SCSS. Also was used absolute imports and normalize.css .
 * [Project Folder](https://github.com/matheusreirasi/alura-cursos/tree/master/react-lidando-com-arquivos-estaticos/aluroni)
-* Figma's design:
+* [Figma's design:](https://www.figma.com/community/file/1206019744391221502)
 
 ### Timer
 * This is a simple timer to practice the uses of React hooks and typescript.
