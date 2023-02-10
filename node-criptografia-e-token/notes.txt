@@ -14,8 +14,19 @@ Algumas características dos hashes:
 
 6- O método sal no hash adiciona mais um componente no hash que gera um hash totalmente diferente do hash normalmente utilizado, dificultando assim a utilização de rainbow table. 
 
-7- Para poder enviar e receber informações entre usuários um dos métodos utilizados é a encriptação simétrica onde a mensagem enviada é encriptada porém quem envia e quem recebe possui uma chave compartilhada utilizada para ler a informação, sem ela a mensagem é somente um monte de letras e números.
+7- Para poder enviar e receber informações entre usuários um dos métodos utilizados é a encriptação simétrica onde a mensagem enviada é encriptada porém quem envia e quem recebe possui uma chave compartilhada utilizada para ler a informação, sem ela a mensagem é somente um monte de letras e números. Mesmo assim ainda é possível um ataque onde a pessoa tenha acesso a essa chave simétrica contendo o método de encriptação utilizada na chave e assim decifrar a mensagem.
 
 8- No arquivo encriptacaoSimetrica.js eu tenho que gerar o tamanho correto de bytes para cada tipo de encriptação utilizada. Algoritmo de encriptação aes-256-ocb e aes-256-ccm não funcionaram com a quantidade de bytes que eu utilizei acima, somente o aes-256-gcm que funcionou com a quantidade de bytes utilizadas (32 bytes para a chave e 16 para a VI). No entanto usar aes-256-gcm não serviu para decifrar a palavra, somente o algoritmo aes256 funcionou para os dois, tanto para cifrar quanto para decifrar a mensagem.
 
-9- Não entendi ao certo da necessidade de colocar .final na variável mensagemCifrada e mensagemDecifrada. Se eu colocar sem o .final ocorre a encriptação da mensagem, porém ela fica bem mais reduzida e a mensagem decifrada não é possível decifrar.
+9- Não entendi ao certo da necessidade de colocar .final na variável mensagemCifrada e mensagemDecifrada. Se eu colocar sem o .final ocorre a encriptação da mensagem, porém ela fica bem mais reduzida e a mensagem decifrada não é possível decifrar. Isso é na encriptação simétrica
+
+10- Na encriptação assimétrica existem duas chaves, a pública e a privada. A pública é responsável pela encriptação e a privada é responsável pela desencriptação. Esse método de criptografia é bem parecida com o PGP (pretty good privacy)
+
+11- Assinatura serve para validar um usuário e evitar que agentes maliciosos se passem por outra pessoa. Na assinatura também ocorre a utilização da chave pública e privada, porém ao contrário do que ocorre com a criptografia assimétrica, aqui a chave privada serve para assinar um documento e a pública para verificar o documento. O usuário que possui o documento utiliza a chave privada para criar uma assinatura digital hasheada e o usuário que recebe a mensagem utiliza a assinatura digital, junto com a chave pública para gerar um novo documento e esse novo documento tem que ser igual ao documento recebido, se eles forem iguais então o documento é válido.
+
+12-  Sessão é quantidade de tempo em que o usuário está autenticado e conectado à um serviço ou um sistema. Ele basicamente funciona da seguinte maneira: um usuário envia alguma informação para o servidor que ele fez a requisição e esse server cria um ID e armazena esse ID em seu banco de dados e também envia de volta para o usuário que fez a  requisição e sempre que for realizada uma requisição por parte desse usuário o server terá de comparar e ver se o ID recebido é igual ao armazenado em seu database. No entanto isso não se aplica a grandes aplicações com muitos databases. O Token funciona praticamente do mesmo jeito.
+
+13- https://cursos.alura.com.br/course/nodejs-criptografia-tokens-jwt/task/107377
+https://cursos.alura.com.br/course/nodejs-criptografia-tokens-jwt/task/107378
+https://www.reddit.com/r/dataisbeautiful/comments/ihpo84/oc_i_hope_you_find_this_one_more_beautiful_than/
+
