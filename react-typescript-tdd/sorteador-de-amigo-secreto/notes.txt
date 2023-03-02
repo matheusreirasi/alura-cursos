@@ -26,7 +26,3 @@ Mock quer dizer imitar ou falsificar
 10- Usar jest.Mock foi bem interessante porque eu uso o estado que eu criei dentro do próprio arquivo de testes. Eu poderia ter usado algo parecido quando fui fazer o desafio do STI ao invés de ter importado a própria classe contendo os dados do aluno.
 
 11- O teste de Snapshot é utilizado para comparar a renderização de um componente com outro, geralmente utilizado em páginas já com os componentes da página. Aqui eu tiro uma foto da página de configuração e espero que ele esteja sempre de um mesmo jeito, se eu fizer alguma atualização dentro da página de configuração ou alguma atualização dentro dos componentes o teste retornará erro e pedirá para eu atualizar o Snapshot. Uma pasta Snapshot é criada contendo a "foto" do HTML.
-
-12- A pasta de hooks não há regras de negócio, ou seja, não há a implementação de como o código deve funcionar para utilizar aquele hook. A regra de negócio vem de outras pastas como da pasta helper. No entanto o arquivo useAdicionarParticipantes.ts aparentemente tem código sobre regra de negócio.
-
-13- Não sei por que na linha 15 do Sorteio.tsx foi utilizado exclamação no final da linha. Sem essa exclamação retorna erro. Além disso tive que utilizar a condição de veracidade pois sem ele poderia retornar undefined, mesmo sendo obrigatório ter pelo menos um nome selecionado, não sendo possível retornar undefined.
