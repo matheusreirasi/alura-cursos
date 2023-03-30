@@ -8,7 +8,7 @@ export const realizarSorteio = (participantes: string[]) => {
 
 
     for (let i = 0; i < totalParticipantes; i++) {
-        const index = i === (totalParticipantes - 1) ? 0 : i + 1
+        const index = i === (totalParticipantes - 1) ? 0 : i+1
         resultado.set(misturado[i], misturado[index])
     }
     return resultado
