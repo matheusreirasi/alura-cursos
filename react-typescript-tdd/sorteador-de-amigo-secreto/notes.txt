@@ -1,7 +1,7 @@
 1- Antes de começar a realizar a aplicação de fato, devo começar a criar os teste e tudo relacionado a aplicação mesmo que seja algo bem simples.
 
 2- A pirâmide dos teste se divide em unidade, serviço e interface
-Os testes de unidade se encontram na base da pirâmide pois ele é mais rápido e mais barato que os outros tipos de testes pois os testes desenvolvidos pelo desenvolvedor está sendo constantimente sendo observado por ele mesmo.
+Os testes de unidade se encontram na base da pirâmide pois ele é mais rápido e mais barato que os outros tipos de testes pois os testes desenvolvidos pelo desenvolvedor estão sendo constantemente observado por ele mesmo.
 Os testes de serviço/integração são os testes onde os componentes são testados juntos. É como se fosse um conjunto de pequenos testes de unidade em um só.
 Os testes de interface se encontram no topo da pirâmide pois são mais lentos e mais caros para serem implementados
 
@@ -10,9 +10,9 @@ Primeiro deve ser criado o atom e depois o hook.
 
 4- O react testing library não testa implementação, ele testa comportamentos
 
-5- Como o projeto utiliza recoil para fazer o tratamento de estados, eu tenho que passar esse recoil também para o ambiente de testes para esses estados serem reconhecidos. Por exemplo, o primeiro teste do formulário foi feito sem o RecoilRoot pois não havia nenhuma estado criado por mim. Após eu criar o estado de erro para tratar as mensagens de erro e colocar dentro do formulário eu tive que utilizar RecoilRoot no ambiente de testes porque o evento de enviar disparado quando o botão é clicado faz o uso do estado erroState caso tenho dois usuários iguais.
+5- Como o projeto utiliza recoil para fazer o tratamento de estados, eu tenho que passar esse recoil também para o ambiente de testes para esses estados serem reconhecidos. Por exemplo, o primeiro teste do formulário foi feito sem o RecoilRoot pois não havia nenhum estado criado por mim. Após eu criar o estado de erro para tratar as mensagens de erro e colocar dentro do formulário eu tive que utilizar RecoilRoot no ambiente de testes porque o evento de enviar disparado quando o botão é clicado faz o uso do estado erroState caso tenha dois usuários iguais.
 
-6- TDD consiste em começar os testes tentando fazer com que ele dê erro de propósito e ajustá-lo conforme o desenvolvimento. Por exemplo o caso de usuário duplicados, eu por padrão considero que já foi inserido dois usuários iguais e tento criar um código para tentar consertar isso. No arquivo de testes já são colocados dois usuários e eu já espero que apareça a mensagem de erro, e assim eu desenvolvo a função de alert na tela. O teste somente passará se eu conseguir renderizar a mensagem de erro na tela. O arquivo de teste basicamente é uma comparação com seu arquivo "real" utilizado no desenvolvimento. No teste eu crio um alert e no arquivo "real" eu também tenho que criar um alert.
+6- TDD consiste em começar os testes tentando fazer com que ele dê erro de propósito e ajustá-lo conforme o desenvolvimento. Por exemplo no caso de usuários duplicados, eu por padrão considero que já foi inserido dois usuários iguais e tento criar um código para tentar consertar isso. No arquivo de testes já são colocados dois usuários e eu já espero que apareça a mensagem de erro, e assim eu desenvolvo a função de alert na tela. O teste somente passará se eu conseguir renderizar a mensagem de erro na tela. O arquivo de teste basicamente é uma comparação com seu arquivo "real" utilizado no desenvolvimento. No teste eu crio um alert e no arquivo "real" eu também tenho que criar um alert.
 COMPARAR O TESTE DE ERRO COM A TAG PARÁGRAFO QUE RENDERIZA  O ERRO.
 
 7- Aparentemente todas as bibliotecas de testes são bem parecidas, como o Rspec do Ruby e o Jest do Javascript. Ambas utilizam o método describe, no entanto com contextos diferentes.
@@ -26,3 +26,7 @@ Mock quer dizer imitar ou falsificar
 10- Usar jest.Mock foi bem interessante porque eu uso o estado que eu criei dentro do próprio arquivo de testes. Eu poderia ter usado algo parecido quando fui fazer o desafio do STI ao invés de ter importado a própria classe contendo os dados do aluno.
 
 11- O teste de Snapshot é utilizado para comparar a renderização de um componente com outro, geralmente utilizado em páginas já com os componentes da página. Aqui eu tiro uma foto da página de configuração e espero que ele esteja sempre de um mesmo jeito, se eu fizer alguma atualização dentro da página de configuração ou alguma atualização dentro dos componentes o teste retornará erro e pedirá para eu atualizar o Snapshot. Uma pasta Snapshot é criada contendo a "foto" do HTML.
+
+12- Acho que helpers é uma pasta para colocar pequenas funções para serem utilizadas em outros arquivos.
+
+13- A utilização do ponto de exclamação na linha 15 do arquivo Sorteio.tsx serve para forçar o typescript pegar somente o valor não nulo da instância. Essa técnica é parecida com a utilização de interrogação quando uso useRef.current?.focus (olhar o arquivo Login.tsx, linha 21) do projeto multiApi.
