@@ -26,8 +26,8 @@ describe('Página de sorteio', () => {
     ])
 
     beforeEach(() => {
-        (useListaParticipantes as jest.Mock).mockReturnValue(participantes)
-        (useResultadoSorteio as jest.Mock).mockReturnValue(resultado)
+        (useListaParticipantes as jest.Mock).mockReturnValue(participantes);
+        (useResultadoSorteio as jest.Mock).mockReturnValue(resultado);
     })
 
 
@@ -52,11 +52,9 @@ describe('Página de sorteio', () => {
         })
 
         const botao = screen.getByRole('button')
-
         fireEvent.click(botao)
 
         const amigoSecreto = screen.getByRole('alert')
-
         expect(amigoSecreto).toBeInTheDocument()
     })
 })

@@ -4,15 +4,15 @@ import { useResultadoSorteio } from '../state/hooks/useResultadoSorteio'
 
 export const Sorteio = () => {
   const participantes = useListaParticipantes()
+  const resultado = useResultadoSorteio()
 
   const [participanteAtual, setParticipanteAtual] = useState('')
   const [amigoSecreto, setAmigoSecreto] = useState('')
 
-  const resultado = useResultadoSorteio()
 
   const sortear = (evento: React.FormEvent<HTMLFormElement>) => {
     evento.preventDefault()
-    resultado.has(participanteAtual) ?? setAmigoSecreto(resultado.get(participanteAtual)!)
+    resultado.has(participanteAtual) ? setAmigoSecreto(resultado.get(participanteAtual)!) : setAmigoSecreto('')
   }
 
 
@@ -33,7 +33,7 @@ export const Sorteio = () => {
           Sortear!
         </button>
       </form>
-        {amigoSecreto && <p role='alert'>{amigoSecreto}</p>}
+        {amigoSecreto && <p role="alert">{amigoSecreto}</p>}
     </div>
   )
 }
