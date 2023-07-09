@@ -1,0 +1,36 @@
+1- As aplicações ocorrem separadamente, sendo o front feito em React rodando na porta 3000 e o painel de administração em container feito com django e rodando na porta 8000
+
+2- Para ver como instala o Docker é só ver o step-by-step do Digital Ocean.
+Para criar a imagem eu tive que usar com o sudo
+  sudo docker compose build
+Na aula foi criado sem o sudo e docker compose era escrito junto, separado somente por hífen. No dia que eu escrevi essa documentação estava funcionando somente com o "sudo", porém agora está funcionando sem o "sudo".
+
+3- Depois de ter criado a imagem do container eu posso ver a aplicação rodando. Da mesma forma que eu utilizo o comando npm start para poder ver a aplicação em react existe um comando para ver uma aplicação em container funcionando, o comando é:
+  sudo docker compose up
+No dia que eu escrevi essa documentação estava funcionando somente com o "sudo", porém agora está funcionando sem o "sudo".
+
+4- Quando foi feito o clone da aplicação os pratos e os restaurantes foram feitos de forma estática no código, o que é uma insanidade pois teria que mexer no código para simplesmente inserir ou deletar algo.
+Então foi utilizado o useEffect para sempre que ocorrer uma alteração no array de dependências a requisição do axios ser disparada.
+
+5- Quando é feito a requisição get de restaurantes não é retornado todos os restaurantes disponíveis, somente os 6 primeiros. Para reparar isso deve ser usado paginação, no entanto paginação aqui é bem mais complicado se comparado com paginação usado no curso de rails do Jackson Pires.
+Primeiro foi necessário criar uma interface de próxima página e os valores dessa interface são os mesmos valores que tem na api do django.
+
+6- No código de paginação no arquivo interfaces/IPaginacao.ts foi necessário usar uma tipagem genérica que o typescript permite criar. Como não tem um valor exato/conhecido pelo React ou pelo typescript para a paginação, então foi necessário colocar que IPaginacao é do tipo <T> que é a forma que o react entende que quando esse IPaginacao for utilizado em algum outro lugar no código ele vai poder receber qualquer outro tipo criado no lugar de T. Nesse caso o IPaginacao foi usado no componente de restaurantes quando é realizada uma requisição para a api e o axios entende que ele é do tipo IPaginacao de IRestaurante. OLHAR O USEEFFECT NO ARQUIVO components/Restaurante/index.tsx
+
+7- Dando um pouco mais de contexto sobre paginação, foi necessário criar um estado onde é armazenado uma string contendo o link para a próxima página, que é obtido através de um dos parâmetros retornados no useEffect. Quando clicar no botão de ver mais, que é o botão de paginação, será disparada a função verMais que contém o axios que tem a string que é o link para a próxima página.
+Esse ver mais insere o restante dos restaurantes que estão cadastrados na api do django, no entanto mostra na mesma página, é uma paginação que não sai da página, fica num scroll infinito na mesma página. Quando isso ocorrer em qualquer linguagem deverá ser feito uma concatenação do que já se tem com o que será recebido, por isso foi usado o spread operator no setRestaurantes dentro da função verMais(que é onde será inserido mais valores) 
+
+8- No Django onde estão todas as opções de pratos e restaurantes e onde está a fonte de dados mostrados no frontend(o próprio site Aluroni) estão também as URLs já criadas contendo as informações citadas. As URLs que tem em seu caminho v1 são simplesmente mostradas ao usuário no site e aqueles que tem v2 são relacionadas à página de administração.
+
+9- Na função excluirRestaurante no arquivo paginas/admin/restaurantes/adminsRestaurantes.tsx foi utilizado método DELETE da api pois a exclusão ocorre no react e será encaminhada para a API e também tem a necessidade de atualizar também a página react sem o restaurante excluído, por isso a const listaRestaurantes com os restaurantes atuais exceto o excluído e essa const é inserida no estado de setRestaurantes.
+
+10- Com o Mui é possível usar CSS dentro de suar próprias tags, basta digitar sx={{display: 'flex'}}
+
+11- Para evitar ficar digitando sempre a mesma URL em diversos arquivos do projeto foi criado uma instância base do axios no arquivo src/api/index.ts para somente usar a URL nesse arquivo e quando quiser fazer uma requisição para essa api é só digitar a instância utilizada para essa api. Isso é útil para quando houver alguma alteração na url ele ser somente alterado em um único arquivo e essa alteração será "levada" para todas as instâncias que ele é utilizada.
+Quando eu quiser usar essa api desse arquivo eu digito http.METODOQUEUTILIZAREINOMOMENTO('/restodocaminhodaurl'). Ao invés de digitar axios.método eu digito http.método (http porque esse é o nome da instância que eu criei, se eu chamasse a instância de pedido eu teria que digitar pedido.método)
+
+12- Como a página de admin tem outras rotar é possível utilizar rotas internas como filhas da rota de admin, no arquivo App.tsx é bem visual entender esse conceito. Como as rotas dentro da rota pai são extensões dessa rota pai, os componentes que são renderizados nessas respectivas rotas são tratadas da mesma forma, sendo assim é necessário inserir os componentes internos no componente pai que nesse caso é o arquivo PaginaBaseAdmin.tsx.
+A tag <Outlet/> do react router dom faz renderizar componentes internos do componente atual, que nesse caso o componente atual é PaginaBaseAdmin.tsx ( é como se fosse um yeld do Ruby on Rails). Como essa tag Outlet é do React Router Dom eu acredito que haja alguma comunicação com a tag Route e por isso seja possível essa integração fácil com a renderização das rotas internas no arquivo App.tsx
+OLHAR ARQUIVO PAGINABASEADMIN.TSX e APP.TSX
+
+13- Olhar outros projetos React com typescript da Alura para ver se geralmente é criado uma interface quando houver o uso de algum state. Como é possível selecionar uma tag para o prato utilizando estados do React eu tive que criar uma interface ITag para poder apontar para o useState qual o tipo será utilizado para a tag.
