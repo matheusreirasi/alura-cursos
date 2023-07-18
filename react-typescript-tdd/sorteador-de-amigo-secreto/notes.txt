@@ -1,4 +1,12 @@
-1- Antes de começar a realizar a aplicação de fato, devo começar a criar os teste e tudo relacionado a aplicação mesmo que seja algo bem simples.
+Para ajudar no entendimento do projeto e de como os testes foram iniciados a ordem de criação foi:
+  primeiro criou o form para receber quem participa do sorteio, depois mostra quem está no sorteio, depois o botão para ir para a página de sorteio. Ou seja primeiro vem a página de Configuração
+
+##################
+DICA DE OUROOOOOO: quando é feito um deploy é possível estabelecer alguns critérios durante o deploy, um deles é não permitir o deploy se houver algum teste falhando na aplicação.
+Por exemplo na Vercel é só ir no projeto que eu quero dar o deploy, ir em configurações e dentro do menu lateral (Settings) eu procuro por Build & Development e coloco o script que será realizado sempre que ocorrer um deploy, que no caso é uma atualização na brach do Github. Por padrão o único build de scrypt que vem é o padrão do react que é o react-scripts build. Para fazer o teste antes de realizar o deploy é só colocar esse script e também o script de teste que é o react-scripts test, ambos separados pela letra "E" comercial duas vezes (&&).
+################## 
+
+1- Antes de começar a realizar a aplicação de fato, devo começar a criar os testes e tudo relacionado a aplicação mesmo que seja algo bem simples.
 
 2- A pirâmide dos teste se divide em unidade, serviço e interface
 Os testes de unidade se encontram na base da pirâmide pois ele é mais rápido e mais barato que os outros tipos de testes pois os testes desenvolvidos pelo desenvolvedor estão sendo constantemente observado por ele mesmo.
@@ -20,12 +28,13 @@ No Jest o describe serve para reunir diversos teste em um único conjunto de tes
 
 8- Posso usar recoil para criar estados de erro personalizados como o erro 404 do site do STI da UFF. Criar o atom do tipo elemento JSX e depois um hook para renderizar esse elemento.
 
-9- Não entendi ao certo o por que ter de utilizar jest.Mock nos testes do arquivo de lista de participantes e nos testes do formulário não utilizar jest.Mock. Em ambos eu utilizo o mesmo hook que eu criei. Sem o mock o estado não consegue ser atualizado. Mock foi utilizado para não usar o próprio useListaParticipantes e sim uma função fake baseada nesse hook.
+9- Não entendi ao certo o por que de ter que utilizar jest.Mock nos testes do arquivo de lista de participantes e nos testes do formulário não utilizar jest.Mock. Em ambos eu utilizo o mesmo hook que eu criei. Sem o mock o estado não consegue ser atualizado. Mock foi utilizado para não usar o próprio useListaParticipantes e sim uma função fake baseada nesse hook.
 Mock quer dizer imitar ou falsificar
 
 10- Usar jest.Mock foi bem interessante porque eu uso o estado que eu criei dentro do próprio arquivo de testes. Eu poderia ter usado algo parecido quando fui fazer o desafio do STI ao invés de ter importado a própria classe contendo os dados do aluno.
 
 11- O teste de Snapshot é utilizado para comparar a renderização de um componente com outro, geralmente utilizado em páginas já com os componentes da página. Aqui eu tiro uma foto da página de configuração e espero que ele esteja sempre de um mesmo jeito, se eu fizer alguma atualização dentro da página de configuração ou alguma atualização dentro dos componentes o teste retornará erro e pedirá para eu atualizar o Snapshot. Uma pasta Snapshot é criada contendo a "foto" do HTML.
+Eu usei Snapshot na página Configuracao.tsx, então se eu alterar algo nessa página eu terei que gerar outro Snapshot
 
 12- Acho que helpers é uma pasta para colocar pequenas funções para serem utilizadas em outros arquivos.
 

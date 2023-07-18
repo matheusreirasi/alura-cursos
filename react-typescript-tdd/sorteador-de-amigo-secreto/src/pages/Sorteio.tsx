@@ -27,6 +27,7 @@ export const Sorteio = () => {
           value={participanteAtual}
           onChange={event => setParticipanteAtual(event.target.value)}
         >
+          <option>Selecione seu nome</option>
           {participantes.map(participante => <option key={participante}> {participante} </option>)}
         </select>
         <button>
@@ -37,3 +38,5 @@ export const Sorteio = () => {
     </div>
   )
 }
+
+//na linha 15 eu tive que usar esse código pq o react retornava errando dizendo que o hook do resultado do sorteio poderia retornar vazio, oq não teria como ocorrer, msm assim foi necessário criar essa regra para poder salvar 

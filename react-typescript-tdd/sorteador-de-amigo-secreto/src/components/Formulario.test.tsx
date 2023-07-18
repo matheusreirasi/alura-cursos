@@ -124,6 +124,7 @@ describe('Comportamento do formulário', () => {
     
     //se não for encontrado algo pelo método getByRole o teste automaticamente retornará um erro, já o método queryByRole serve para quando eu quiser procurar algo na tela e mesmo assim não o encontrar, a mensagem de erro não deverá ser disparada
     //mesmo sem o act o teste passava sem problemas, mas mesmo assim era retornada uma mensagem como se tivesse algum erro. Esse erro ocorreu porque sempre que houver uma  atualização de estado no React(nesse caso a mensagem de erro tinha uma string e agora é null), esse estado  que está sendo alterado deve estar dentro de uma função act do testing library
+    //a função de tempo da mensagem de erro está no próprio hook useAdicionarParticipante.ts que eu criei para tratar o erro de nome duplicado na pasta state/hooks
 })
 
 

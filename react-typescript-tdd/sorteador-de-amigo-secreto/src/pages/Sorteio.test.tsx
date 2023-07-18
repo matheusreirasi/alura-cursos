@@ -36,7 +36,7 @@ describe('Página de sorteio', () => {
         render(<RecoilRoot> <Sorteio/> </RecoilRoot>)
 
         const opcoes = screen.getAllByRole('option')
-        expect(opcoes).toHaveLength(participantes.length)
+        expect(opcoes).toHaveLength(participantes.length + 1) //isso pq aparece uma option extra além dos nomes
     })
 
 

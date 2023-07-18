@@ -11,7 +11,7 @@ export const Formulario = () => {
   const adicionarNaLista = useAdicionarParticipantes()
   const mensagemErro = useMensagemErro()
 
-  const adicionarParticipante = (evento: FormEvent<HTMLFormElement>) => {
+  const adicionarParticipante = (evento: FormEvent<HTMLFormElement>) => { 
     evento.preventDefault()
 
     adicionarNaLista(nome)
