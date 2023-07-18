@@ -4,7 +4,7 @@ Isso serve para baixar os dois para a linguagem typescript. Eles são instalados
 Na criação do module css tem que colocar o nome do arquivo em maiúsculo pois quando ocorre o build pelo React, ele sabe que se trata de módulo e o resto do tipo que é .module.scss para gerar um hash para esse tipo de arquivo. É através de hash e o próprio nome do módulo que faz esse estilo ser único.
 
 2-
-Normalmente basta passar o caminho do arquivo estático que será utilizado na aplicação como no caso do logo do Aluroni, no entanto não aparece a imagem no navegador. Esse problema acontece porque durante o build o React não reconhece que o caminho passado é o caminho de um arquivo estático e o webpack (responsável pelo build) não entende que o src (no caso da tag img) é um arquivo, mas entende que é uma string. Por isso é necessário importar a imagem lá em cima do código e tratá-lo como um objeto.
+Normalmente basta passar o caminho do arquivo estático que será utilizado na aplicação como no caso do logo do Aluroni, no entanto não aparece a imagem no navegador. Esse problema acontece porque durante o build o React não reconhece que o caminho passado é o caminho de um arquivo estático(CSS ou Javascript) e o webpack (responsável pelo build) não entende que o src (no caso da tag img) é um arquivo, mas entende que é uma string. Por isso é necessário importar a imagem lá em cima do código e tratá-lo como um objeto.
 Esse método citado acima transforma a imagem em uma tag imagem no HTML, para realmente usar como SVG ele deve ser importado como um React Component e depois colocado no código como um componente:
     import {ReactComponent as Logo} from "../../assets/logo.svg"
 Firefox não aparece uma imagem pequena, Chrome aparece uma imagem "quebrada" pequena.
@@ -35,5 +35,26 @@ Não foi possível usar ponto como normalmente é feito devido ao --ativo, por i
 
 12- A função ordenar do index do Itens recebe o tipo array porque eu deixei o cardápio sem o colchetes no final. Fiz isso pois quero que retorno uma dependência de array
 
+13- Para utilizar o eslint para consertar o código: npx eslint ./src --fix
+Após o eslint vem a pasta que será analisada.
+
+14- No arquivo de rotas eu tinha usado Component ao invés de element para renderizar o elemento React dentro da tag <Route Component={} />, no entanto a documentação do React Router Dom diz que é recomendável usar Component quando estiver dentro de RouterProvider ao invés de BrowserRouter, que é o meu caso. Quando usar Component eu somente escrevo o nome da variável que será renderizado e quando utilizar element eu tenho que colocar a variável dentro de tag para que o React possa entender.
+
+15- Para utilizar o botão de voltar quando ocorre erro 404 foi utilizado o hook useNavigate do react-router-dom para retorna uma página a partir da página atual. Como a mudança de rotas ocorre em forma de pilha, onde a página atual se encontra no topo, é possível utilizar valores numéricos para retorna determinada quantidade de páginas.
+
+16- O hook useParams serve para retorna algo da url quando é escrito algo após dois pontos, retorna uma chave valor contido na url. Já o useLocation serve para retorna diversos valores, como elementos após interrogação na url, o caminho do arquivo, hash e uma chave state que permite armazenar valores do item que será renderizado até mesmo alguns detalhes/estados do item que é renderizado utilizando esse hook. Para ver o que esse hook retorna é só dar um console.log(useLocation())
+
+17- Não sei qual é melhor para fazer navegação, o hook useNavigate ou a tag <Link />. A constante instanciada com o hook useLocation() aceita como um de seus argumentos o replace que é um boolean e serve para não registrar a rota que ele navega na pilha de navegação do react-router-dom.
+https://reactrouter.com/en/main/hooks/use-navigate
+
+18- useNavigate utiliza o comando já padrão do javascript para navegadores que é window.history e o useLocation usa window.location.pathname
+
+19- Na função redirecionarParaDetalhes no arquivo pages/Inicio/index.tsx state dentro da função navigate tinha sido usado sem o colchetes(não foi tratado como objeto) e não funcionou, somente funcionou quando eu tratei o valor da chave state como objeto(coloquei entre colchetes).
+        navigate(`/prato/${prato.id}`, {state: {prato}, replace: true})
+Esse é o método correto.
+
 INFORMAÇÃO BRABA-
 Quando o script "npm start" é executado ele automaticamente gera uma pasta build, no entanto ele é alocada em memória e roda no navegador. O comando "npm build" gera o build "físico" e assim é possível ver melhor o que ele faz.
+
+SHORTCUT BRABÍSSIMO-
+Quando eu der double click em uma palavra que se repete outras vezes no código elas tem um highlight, se eu der CTRL+D todas são selecionadas e eu posso editar tudo de uma só vez.
