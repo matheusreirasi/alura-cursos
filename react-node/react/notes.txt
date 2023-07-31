@@ -1,0 +1,24 @@
+1- Essa aplicação foi iniciado com Vite, ao contrário do curso que começou com create-react-app.
+
+2- O Vite já instala automaticamente o Eslint e para executá-lo basta digitar:
+  npm run lint
+No Eslint do projeto Aluroni o comando é npx eslint ./src --fix
+No entanto eu não sei consertar usando o lint daqui, eu coloco barra barra fix no final e me retorna a mesma mensagem que o comando de script npm run lint
+
+3- O styled components é um tipo de CSS-in-JS e transforma códigos CSS em tags container em React. Para usar o styled components é só instanciar uma variável com o método styled.div`todo o CSS fica aqui dentro` e depois colocar essa variável instanciada em volta do componente React que será estilizado.
+Dentro da crase do styled components não é necessário colocar a classe que receberá o código CSS como normalmente ocorre num arquivo CSS comum(.nomeDaClasse {códigoCSS}), esse ponto e o nome da classe não é necessário, posso colocar o código CSS diretamente.
+O problema aqui é que como não há classes dentro de styled components, eu posso utilizar um styled components para cada componente que será estilizado, se dentro de um componente tiver mais de uma classe que necessite uma estilização específica não dará certo colocar o nome dessa classe dentro das crases do styled components.
+
+4- Variável global do styled components não fica envolvendo um componente, ele é como um componente irmão que será enviado para todos os outros componentes da aplicação. Quando ele é declarado também não utiliza styled.div``, é colocado direto createGlobalStyle``
+OLHAR AQUIVO MAIN.JSX
+
+5- Quando eu não digito nada na barra de pesquisa retorna todos os livros e creio que isso ocorra porque
+
+#####################
+REPO DO CURSO: https://github.com/alura-cursos/2610-fullstack-react/blob/0f0ef4232ca5308e0fc0117681b0236336798e4c/src/componentes/Pesquisa/index.js
+#####################
+
+#####################
+MELHORAR O ESTILO DO SITE E TAMBÉM VER SE DÁ PRA USAR O CURSO DE NODE PARA COMPLEMENTAR ESTE
+CRIAR UM README PARA TODA A FORMAÇÃO AO INVÉS DE CRIAR UM README PARA CADA CURSO DESTA FORMAÇÃO
+#####################
