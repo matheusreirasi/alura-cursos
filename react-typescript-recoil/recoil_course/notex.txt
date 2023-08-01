@@ -1,0 +1,84 @@
+O conceito deste curso está relacionado a como lidar com estados que cada componente recebe e analisa. Por exemplo o arquivo components/Evento/index.tsx tem uma tag <EventoCHeckbox /> e recebe diferentes eventos criados que também já foram utilizados anteriormente.
+O arquivo components/ListaEventos/index.tsx tem um componente ListaDeEventos que recebe o estado de eventos e esse componente ListaDeEventos passa para o componente <Evento /> o estado que o ListaDeEventos já está recebendo. O componente <Evento /> também passa adiante o estado de Evento para outro componente que é o <EventoCHeckbox />.
+OBSERVAR A SEQUÊNCIA LISTADEENVENTOS > EVENTO > EVENTOCHECKBOX 
+Em resumo, recoil serve para utilizar event handler com estados ao invés de props. (Comparar esse projeto com o cronômetro)
+
+Context API, assim como recoil, também serve como alternativa ao uso props nos componentes.
+
+
+########
+REPO: https://github.com/alura-cursos/event-tracker/tree/aula-4
+########
+
+
+########
+Shortcut brabo:
+Selecionar diversas linhas e comando CTRL + k + C para comentar todas as linhas selecionadas.
+Selecionar diversas linhas e comando CTRL + k + U para remover comentários de todas as linhas selecionadas.
+########
+
+
+1- Quando utilizar uma aplicação que faça uso de recoil deve-se colocar toda a aplicação como children do recoil. É só fazer o componente <App /> ter a tag RecoilRoot em torno de todos os componentes da aplicação e a tag <App /> , que nesse caso é o próprio recoil, fica dentro de <React.StrictMode> no arquivo index.tsx.
+
+2- A explicação do primeiro item é parecida com a explicação utilizada no curso de TDD onde foi utilizado RecoilRoot no arquivo de teste para poder usar mocks de forma eficiente. 
+
+3- No conceito do React um estado é composto de diversos átomos, por isso o nome do arquivo na pasta state é atom. Cada pedaço do estado é um atom.
+
+4- Não me recordo ao certo, no entanto eu acho que hooks (aqueles que começam com useNomeDoHook) não podem ser usados dentro de uma função React ou um outro hook, eles devem ser declarados antes.
+
+5- Na linha 10 de Components/Formulario/index.tsx foi utilizado o hook useSetRecoilState pois eu quero que sempre que uma nova tarefa for adicionada o estado se altera, e não somente os valores dos estados, por isso não foi utilizado o useSetRecoilValue. O hook é declarado fora de qualquer outra função porém dentro de React Function Component e chamado dentro da função submeterForm que é disparado quando o botão de enviar formulário é clicado. Neste momento da aula é possível inserir tarefas no entanto não é possível alterar seu status de concluído ou não.
+
+6-     Apenas chame Hooks no nível mais alto. Não chame Hooks dentro de loops (for, foreach, while), condições (if, else if) ou funções aninhadas (por exemplo, numa função que é executada dado um evento de onClick).
+
+    Apenas chame Hooks a partir de componentes funcionais. Não chame Hooks a partir de funções comuns, fora de componentes React.
+
+7- Pensar numa forma melhor de escrever a função de excluir evento no arquivo components/Evento/index.tsx. Como o setListaEventos é do tipo IEvento, os parâmetros passados dentro desse state conseguem pegar todos os valores contidos no state, que no caso os valores de listaDeEventosState. Por essa razão foi possível filtrar e comparar o valor do evento atual com os valores contidos no estado de listaDeEventosState.
+
+8- Na função de alterar status de uma tarefa no arquivo components/Evento/EventoCHeckbox/index.tsx foi criado uma outra lista (listaAntiga) para alterar o status das tarefas e depois essa nova lista alterada é retornada. Não foi alterado diretamente o valor do estado no array de IEvento.
+
+9- Quando eu estava criando a função de alterar status eu alterei diretamente o valor do state evento.completo que diz lá no IEvento se a tarefa foi concluída ou não. No entanto não foi possível fazer essa alteração diretamente pois o console do navegador retornou o erro "TypeError: "completo" is read-only". Por isso foi criado um objeto eventoAlterado que é uma cópia de IEvento e a partir daí que eu posso alterar o status da tarefa para concluído ou não. Se eu não passar esse objeto eventoAlterado para dentro do hook que eu criei setListaEventos a lista de eventos não é alterada.
+
+10- Alterar uma cópia do estado real de IEvento dá certo porque depois alterar o state eu passo para o setter desse IEvento (setListaEventos) o conteúdo contido na cópia que eu criei. Assim eu não altero diretamente o estado e evito o erro citado no tópico acima.
+
+##############
+11- Tem um bug no calendário que não atualiza a task quando ela é arrastada pelo calendário. A documentação para essa correção é https://docs.kalend.org/docs/basics/callbacks#oneventdragfinish
+Quando eu excluo ou altera o status para concluído ele funciona sem problema.
+Isso é relacionado na aula 2, quarto vídeo.
+#############
+
+12- Antes no arquivo de formulário tinha uma variável "const setListaEventos = useSetRecoilState<IEvento[]>(listaDeEventosState)" que servia para ser chamada quando o formulário era submetido e atualizava a lista de eventos graças a esse hook. Para utilizar o princípio da responsabilidade única foi criado um hook para essa função de adicionar um evento e a única coisa que ele observa como parâmetro é se a data é atual ou não e também já passa o id. Como é um projeto pequeno não há necessidade disso, mas num projeto em que há possibilidade de crescimento isso faz sentido. Não sei porque não pôs outros parâmetros como descrição e outros parâmetros relacionados ao evento dentro desse hook. 
+
+13- Ainda falando sobre o tópico anterior, se na função de submeterForm eu não colocar o try...catch... para criar/atualizar o formulário ele não vai retornar nada na tela mas retorna no console o erro com a mensagem que eu passei no arquivo de criação do hook
+
+14- A função de filter no javascript utilizada em arrays filtra os valores passados para dentro de seu parâmetro e retorna somente valores que correspondem à logica passada dentro da função. No hook criado useDeletarEvento foi usado essa função e somente era salvo dentro do parâmetro instanciado valores diferentes daquele valor atual pois esse valor atual seria excluído e não deveria ser salvo.
+
+15- Tentei utilizar o hook de deletar evento diretamente no onClick no componente Evento no entanto não deu certo, tive chamar esse hook numa variável e depois essa variável foi chamada na função do onClick
+
+16- No arquivo atom.ts eu tentei exportar separadamente os states usando export default no fim do arquivo para cada um dos estados, no entanto me retornou erro em cima de cada estado após o import dizendo "Um módulo não pode ter várias exportações padrão". Como consequência eu tive que alterar as importações nos arquivos de hooks.
+
+17- O problema no tópico anterior reforça a importância de estruturar bem os códigos pois se eu tivesse usado o atom ou os hook em diversos arquivos eu teria que alterar todos individualmente e ter diversos erros. Como o atom e os hooks estão em um único local, eu somente altero esses locais e as funções que eu criei que fazem uso desse estado já voltam a funcionar
+
+18- No componente ListaDeEventos foi usado true como retorno da condição pois por padrão o campo de filtro vem vazio, se eu colocar para retornar uma string vazia como eu tinha tentado fazer ele vai retornar nenhum evento salvo. 
+
+19- A função toISOString() utilizada na linha 20 no componente ListaDeEventos retorna um formato de data do tipo "2023-07-24T....", contendo outras informações após o T. Como somente importa o ano, mês e dia, foi utilizada a função slice para pegar os valores da posição 0 até 9
+
+20- Como o objetivo do curso é deixar os componentes o mais limpo possível foi removido o código que faz a filtragem de eventos no arquivo do componente ListaDeEventos pois dentro dos arquivos de componentes não deve ter nada relacionado a qualquer coisa sobre Recoil, somente na pasta state.
+Foi criado dentro da pasta state um selector que retorna algo que é derivado do estado original, que nesse caso retorna uma lista de eventos filtrados, fazendo a mesma coisa que era feita dentro do arquivo do componente ListaDeEventos.
+Esse selector utilizado é da própria lib do Recoil.
+Com essa configuração agora é possível mostrar no calendário somente os eventos filtrados quando é aplicado algum filtro, se nenhum filtro é aplicado então todos os eventos são mostrados no calendário.
+ 
+
+21- npm install -g json-server
+    json-server --watch db.json -p 8080
+Isso permite criar uma pequena API para testes na porta 8080(por padrão a porta é a 3000, mesma do React). Antes de iniciar o servidos é preciso criar um arquivo db.json na raiz da pasta com os dados que se quer fakear.
+https://www.alura.com.br/artigos/mockando-apis-rest-com-json-server?_gl=1*1r8z6a*_ga*NTI1NTYzMTYxLjE2ODU3NDE5ODM.*_ga_59FP0KYKSM*MTY5MDg0NjM4Mi43MC4xLjE2OTA4NDY0MTAuMC4wLjA.*_fplc*OFA1YXA0YVlZWWk3eHhqS3FMTVlXMVBkN1hTSkJtZGdpMG9NSFF5RGkyb3dKbkU4U0ZIUER2RkI2bVpBcExEanNnRU93dGZmM0VCYWRiWDhBJTJGUWFJa2JHOW1tejE4NlZQWDRvOEExaXcxaFkzREVmMVpiJTJGUTJaaWtiVGxnUSUzRCUzRA..
+Agora a aplicação só funciona se o server estiver UP.
+
+22- O Recoil utiliza um recurso do React chamado Suspense que permite exibir algo enquanto uma chamada está sendo realizada. Da mesma forma que eu tenho que envolver toda a aplicação em torno de RecoilRoot, quando eu utilizar algum estado que faz uma requisição HTTP eu tenho que envolver toda a aplicação em torno de Suspense, igualmente e no mesmo arquivo que é feito o RecoilRoot.
+
+23- Sempre que eu utilizar datas é bom usar o objeto padrão do javascript new Date(algumaData). No arquivo de selector onde possui a requisição foi necessário colocar a data de início e de fim na const eventosAsync pois sem eles retornava erro no console do navegador e a página não era renderizada.
+
+24- Foi inserido um componente em App.tsx para sempre ficar observando o estado do atom. Sempre que eu inserir algo ou alterar alguma tarefa(que está diretamente relacionado ao atom) irá me retornar no console no navegador o que foi alterado e de uma forma organizada. Ele inclusive mostra o debug das requisições antes dos estados de eventos que eu criei pois primeiro precisa receber os eventos e depois inserir esses eventos no estado.
+
+DICA:
+    Quando se tratar de estado, deve-se evitar ao máximo a utilização de funções que alterem seus valores dentro de componentes. Ao invés de ter o valor do estado alterado dentro de um componente React, é melhor ter no componente uma função (um hook que eu criei) que altere o valor do estado. Se observar em todos os arquivos dentro da pasta components não há nenhuma importação do Recoil, somente as funções que fazem uso do Recoil, assim se eu alterar o Recoil para context API ou Redux eu faço a alteração somente no arquivo especial onde é criado a função que altera os valores de estado.
