@@ -1,51 +1,59 @@
-import autores from "../models/Autor.js"
+import autores from "../models/Autor.js";
 
 class AutorController {
-    static listarAutores = (req, res) => {
-        autores.find((err, autores) =>{
-            res.status(200).json(autores)
-        })
-    }
+	static listarAutores = async (req, res) => {
+		
+		try {
+			const autoresResultado = await autores.find();
+			res.status(200).json(autoresResultado);		
+		} catch (error) {
+			res.status(500).send({message: "Erro interno"});
+		}
 
-    static listarAutorId = (req, res) => {
-        const id = req.params.id
+		// autores.find((err, autores) =>{
+		// 	res.status(200).json(autores);
+		// });
+	};
 
-        autores.findById(id, (err, autores) => {
-            if (err) return res.status(400).send(err)
-            else {res.status(200).send(autores)}
-        })
-    }
+	static listarAutorId = (req, res) => {
+		const id = req.params.id;
 
-    static cadastrarAutor = (req, res) => {
-        const novoAutor = new autores(req.body)
+		autores.findById(id, (err, autores) => {
+			if (err) return res.status(400).send(err);
+			else {res.status(200).send(autores);}
+		});
+	};
 
-        novoAutor.save((err) => {
-            if (err) {
-                res.status(500).send(err)
-            } else {
-                res.status(201).send(novoAutor.toJSON())
-            }
-        })
-    }
+	static cadastrarAutor = (req, res) => {
+		const novoAutor = new autores(req.body);
 
-    static atualizarAutor = (req, res) => {
-        const id = req.params.id
+		novoAutor.save((err) => {
+			if (err) {
+				res.status(500).send(err);
+			} else {
+				res.status(201).send(novoAutor.toJSON());
+			}
+		});
+	};
 
-        autores.findByIdAndUpdate(id, {$set: req.body}, (err) => {
-            if (err) return res.status(500).send(err)
-            else {res.status(200).send('Autor atualizado com sucesso!')}
-        })
-    }
+	static atualizarAutor = (req, res) => {
+		const id = req.params.id;
+
+		autores.findByIdAndUpdate(id, {$set: req.body}, (err) => {
+			if (err) return res.status(500).send(err);
+			else {res.status(200).send("Autor atualizado com sucesso!");}
+		});
+	};
 
 
-    static removerAutor = (req, res) => {
-        const id = req.params.id
+	static removerAutor = (req, res) => {
+		const id = req.params.id;
 
-        autores.findByIdAndDelete(id, err => {
-            if (err) return res.status(500).send(err)
-            else {res.status(200).send('Autor excluído')}
-        })
-    }
+		autores.findByIdAndDelete(id, err => {
+			if (err) return res.status(500).send(err);
+			else {res.status(200).send("Autor excluído");}
+		});
+	};
 }
 
-export default AutorController
+export default AutorController;

@@ -3,7 +3,7 @@ Pacotes básicos para começar o servidor:
     2- Configuração do script do package para rodar o nodemon quando iniciar o server. "dev": "nodemon server.js"
     3- const http = require("http") para poder criar o server. Como eu uso o express, eu realmente não preciso disso, somente crio as requisições no arquivo app e exporto o objeto app para o server.
 
-1- O servidor do mongodb não funciona no Firefox nem no insomnia, somente no Chrome.
+1- O servidor do mongodb não funciona no Firefox nem no insomnia, somente no Chrome. (FUNCIONA SIM)
 
 2- Para a conexão funcionar corretamente com o banco de dados tenho que colocar o nome do database no final do link de conexão que o mongodb entrega, no caso desse projeto é livraria-alura. Olhar o arquivo db.js
 
@@ -35,3 +35,17 @@ Se eu não colocar o populate no controller será retornado no campo de autor(is
 11- Quando for criar as rotas no node tem que colocar primeiro as rotas mais específicas (como aquelas que contém algum critério de busca) e depois as menos específicas. Se eu colocar uma rota de filtro abaixo de uma rota que busca um ID irá me retornar erro pois o node irá pensar que eu quero filtrar algo a partir do ID que está em cima. Sempre colocar rotas de filtro antes de rotas que buscam ID. No Postman da aula aparece os parâmetros da busca (chave/valor) editara: Rocco por exemplo
 https://cursos.alura.com.br/course/nodejs-api-rest-express-mongodb/task/106304
 https://www.alura.com.br/artigos/rest-principios-e-boas-praticas
+
+12- Para usar o EsLint para reparar os códigos:
+    npx eslint ./src --fix
+
+13- No primeiro curso foi utilizado callback nos controllers para responder requisições e também para tratamento de erros
+    static listarLivros = (req, res) => {
+		livros.find()
+			.populate("autor")
+			.exec((err, livros) =>{
+				res.status(200).json(livros);
+			});
+	};
+Na continuação da segunda parte do curso foi utilizado async/await, no entanto para haver tratamento de erros e acertos da requisição/resposta tem que usar try/catch
+    

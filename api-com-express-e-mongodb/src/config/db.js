@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 
-mongoose.set('strictQuery', false)
-mongoose.connect("mongodb+srv://usuario:123@alura.aqe9eco.mongodb.net/livraria-alura?retryWrites=true&w=majority")
+mongoose.set("strictQuery", false);
+mongoose.connect(process.env.MONGO_CONNECTION_STRING);
 
-const db = mongoose.connection
+const db = mongoose.connection;
 
-export default db
+export default db;
 
 //Não esquecer de colocar o nome do database depois da porta da conexão

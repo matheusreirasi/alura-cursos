@@ -1,16 +1,16 @@
-import express from "express"
-import db from "./config/db.js"
-import routes from "./routes/index.js"
+import express from "express";
+import db from "./config/db.js";
+import routes from "./routes/index.js";
 
 
-db.on("error", console.log.bind(console, "Erro de conexão"))
+db.on("error", console.log.bind(console, "Erro de conexão"));
 db.once("open", () => {
-    console.log("Conexão bem sucedida")
-})
+	console.log("Conexão bem sucedida");
+});
 
-const app = express()
-app.use(express.json())//sem isso ñ consigo passar para o post um objeto json. Se eu tentar irá receber null
+const app = express();
+app.use(express.json());//sem isso ñ consigo passar para o post um objeto json. Se eu tentar irá receber null
 
-routes(app)
+routes(app);
 
-export default app
+export default app;
