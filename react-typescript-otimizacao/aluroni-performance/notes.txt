@@ -1,0 +1,50 @@
+1- Esse curso é uma continuação do Aluroni iniciado no curso lidando com arquivos estáticos e ampliado no curso conhecendo a biblioteca React Router
+
+2- O propósito aqui é entender como o React funciona, como ele é compilado usando Javascript e XML e como melhorar sua renderização.
+
+3- A partir da versão 17 do React (versão utilizada aqui) se tornou desnecessário incluir no topo do arquivo JSX/TSX a importação do React pois antes o elemento era convertido utilizando React.createElement.
+Nas versões atuais a compilação com Webpack ou Babbel é diferente.
+
+4- O retorno de cada componente React é um JSX/TSX. Os componentes React são funções Javascript com um retorno e dentro desse retorno estão elementos utilizados dentro do componente que são tratados como objeto. Para entender melhor é só ir dentro de alguma pasta que tenha um componente importado e dar um console.log nessa função. Aqui eu dei console.log do <Cardapio /> no arquivo routes.tsx
+
+5- Como o retorno de uma função de um componente React é um objeto contendo diversos valores sobre as tags HTML dentro do componente e também o React funciona como um estado onde ele é sempre atualizado, sempre que há alguma atualização em uma state ou em uma props no componente os objetos são "destruídos" e "reconstruídos". Porém quando há uma atualização numa variável não ocorre essa destruição e reconstrução citados.
+
+6- O React sabe quando tem que alterar algo comparando o virtualDOM com o DOM real utilizado no navegador e a comparação entre eles ocorre nos objetos que lidam com estado ou props. Essa comparação evita de sempre ficar atualizando alguma variável toda hora. Quando algo é atualizado, a comparação é feita em toda a árvore DOM e não somente no componente atualizado.
+
+7- Quando é feito uma pesquisa como ocorre na página de cardápio, o input é renderizado no console do navegador diversas vezes pois ele é um campo que recebe algo do usuário e sempre que algo é digitado o estado é alterado para renderizar a busca na tela. No entanto não é necessário atualizar o estado da requisição sempre que o usuário digitar algo pois assim pode haver uma sobrecarga de requisições no caso de uma API por exemplo, e nesse caso como eu quero que apareça algo na tela eu não preciso lotar minha aplicação de "requisições" para renderizar algo que já está na tela, que é o caso aqui onde eu digito o prato e ele já aparece na tela mas mesmo com o prato na tela ocorre atualizações do DOM desnecessariamente.
+
+8- Para reparar essa renderização desnecessária do tópico acima a solução é usar uma função do React chamada memo(). Ele deve ser usado quando um componente é importado. 
+##
+OLHAR ARQUIVOS PAGES/CARDAPIO/BUSCADOR/INDEX.TSX, PAGES/CARDAPIO/FILTROS/INDEX.TSX, PAGES/CARDAPIO/ITENS/ITEM/INDEX.TSX
+##
+No entanto essa função deve ser usada em casos específicos pois memo quer dizer memorize, onde o React faz uma tarefa de processamento extra para memorizar o estado do componente. Essa função memo() deve ser usada quando for iterar uma lista, navegar entre telas ou renderização condicional.
+
+9- Quando ocorre uma renderização de um componente que percorre uma lista, como no arquivo src/pages/cardapio/itens/index.tsx, é necessário colocar uma key para que o virtualDOM e o DOM real possam fazer a comparação
+
+10- O React Dev Tools somente funciona quando eu estiver desenvolvendo com o React já levantado. Para usar a ferramenta da melhor forma possível eu tenho que abrir o inspecionar do navegador, ir até Components onde tem um símbolo do React, nas configs e habilitar a opção "Highlight updates when components render." Isso fará brilhar um campo verde em torno do elemento JSX que é renderizado na tela. A melhor forma de ver isso funcionando é digitando algo no campo de busca na página de Cardápio.
+
+11- A aba Profiler do React Dev Tools serve para medir o tempo de renderização de um componente, para usar é só clicar na bolinha azul, realizar alguma ação que eu queira testar e parar a gravação clicando no botão vermelho. Quando eu terminar irá retornar tudo que foi renderizado e quanto tempo levou para cada componente.
+
+12- Mesmo que um componente seja exportado usando memo() ainda assim pode ser necessário fazer com que algum elemento dentro desse componente seja também memorizado para melhorar a eficiência. No arquivo src/pages/cardapio/buscador/index.tsx foi usado o hook useMemo() no logo da lupa para evitar render desnecessário.
+
+13- No React Dev Tools no console do navegador mostra o que é renderizado e o que não é, componente antigo aparece cinza e novo com uma cor diferente.
+
+14- Quando altera de uma tela para outra, do início para o cardápio por exemplo, os links que ficam no topo da tela piscam em verde quando o React Dev Tools está aberto. Isso ocorre porque o react-router-dom altera seus próprios hooks internos responsáveis por fazer essa transição de uma página para outra, e esses hooks internos funcionam juntamente com todos os links como parâmetros.
+
+15- Se eu inspecionar o HTML no navegador verei que todos os estilos CSS da aplicação são importados dentro da tag Head, até mesmo CSS da página NotFound que só deve ser renderizado se a página for chamada. Esse import desnecessário deve ser evitado a todo custo. Isso ocorre porque no arquivo de rotas todos os componentes são importados para serem utilizados pela rotas do React e isso ocorre de forma síncrona. Para as rotas do React saberem que eu quero que renderize somente o que será acessado eu tenho que utilizar o dynamic import.
+
+16- React.lazy() foi usado na pasta de rotas e na página de NotFound
+
+
+#############
+ARQUIVOS COM ANOTAÇÕES
+src/pages/cardapio/itens/index.tsx
+src/pages/sobre/index.tsx
+############
+
+
+############
+LINKS INTERESSANTES
+https://cursos.alura.com.br/course/react-otimizando-performance/task/105403
+https://cursos.alura.com.br/course/react-otimizando-performance/task/105405
+############
