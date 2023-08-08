@@ -1,7 +1,9 @@
 # Project Preview
 
 ## First steps
-After download the project run `npm install` to install all dependencies. When finished run `npm run dev` to start the project using nodemon. The server is running on https://localhost:8080.
+After download the project run `npm install` to install all dependencies. 
+You will have to set a string connection on `src/config/db.js` by creating a cluster on MongoDB atlas.
+When finishing installing and configuring, run command `npm run dev` to start the project using nodemon. The server is running on https://localhost:8080.
 
 ## Project Overview
 * This is a CRUD bookstore made with NodeJs and MongoDB Atlas as database.
