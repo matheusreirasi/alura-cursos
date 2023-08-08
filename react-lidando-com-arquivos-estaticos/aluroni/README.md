@@ -16,5 +16,10 @@ You will also see any lint errors in the console.
 * The course react-router-dom extends this project.
 * From react-router-dom course it's used eslint to analyze code. To use it run on terminal `npm init @eslint/config` and answer some questions. Program will be in use just after installation, it works with tsx filetype but it didn't works with scss filetype. To adjust everything that don't match eslint configs run on terminal `npx eslint ./src --fix` to fix all files inside src folder. The default config after installation still give errors about 'React' must be in scope when using JSX, to fix it just put in eslint config file "react/react-in-jsx-scope": "off" and "react/jsx-uses-react": "off" inside rules key.
 
+## Cool links
+[Alura repo 1](https://github.com/alura-cursos/aluroni-introducao/tree/Aula1)
+
+[Alura repo 2](https://github.com/alura-cursos/aluroni-router/tree/Aula1)
+
 ### OBS:
 For some reason the app is not working on localhost after a crash on Firefox. Console return `SyntaxError: illegal character U+FFFD` error. 
