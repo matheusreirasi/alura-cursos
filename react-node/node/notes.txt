@@ -1,0 +1,17 @@
+######
+REPO: https://github.com/bernardosevero/alura-books-server/blob/main/servicos/livros.js
+######
+
+######
+COOL LINKS
+https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Headers
+https://developer.mozilla.org/pt-BR/docs/Web/HTTP/Status
+######
+
+1- Criar o backend Node com express na mão não tem atualização automática do servidor, se eu alterar algo no código e quiser ver na página eu terei que cancelar o arquivo no terminal e depois rodar o arquivo de novo. Para resolver isso existe o nodemon. Ele só funcionou depois de eu ter colocado o comando de start no arquivo package.json, o mesmo código diretamente no terminal não funcionou.
+
+2- Tentei fazer a exportação dos arquivos do controller usando export default mas não deu certo.
+
+3- Explicação da função alterarLivro no arquivo services/livro.js: o spread operator dentro do objeto é uma forma mais verbosa de inserir somente no no primeiro parâmetro valores contidos no segundo parâmetro. O primeiro comentário mostra o que tem no primeiro parâmetro e o segundo comentário mostra o que tem no segundo parâmetro. Se no primeiro comentário tivesse mais variáveis como o nome do autor do livro ou a editora do livro, somente os campos relacionados ao segundo comentário seria alterado, no caso o nome do livro, enquanto os campos de editora e autor estariam intactos por exemplo.
+
+4- Antes eu tinha declarado a variável indiceAlterado na função alterarLivro no arquivo services/livro.js com "const" ao invés de "let" e isso deu um erro onde quando eu atualizava algum valor era sobrescrito um novo objeto dentro do livro que eu queria atualizar. Assim ficava dentro do objeto id

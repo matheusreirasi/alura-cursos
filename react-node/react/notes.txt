@@ -14,9 +14,20 @@ OLHAR AQUIVO MAIN.JSX
 
 5- Quando eu não digito nada na barra de pesquisa retorna todos os livros e creio que isso ocorra porque
 
+6- Por algum motivo, depois de eu inserir async/await na função getLivros na pasta services deu uma tremenda merda de o firefox não carregar nenhuma página corretamente e a memória do PC começar a transbordar. Foi necessário criar uma função no front end somente para fazer a chamada da API e depois essa função é colocada dentro do useEffect, resolveu o problema do firefox parar mas ainda assim ocorre uma elevação do uso de RAM(equilibrado em 5Gb) e uma certa variação no uso de núcleos.
+
 #####################
-REPO DO CURSO: https://github.com/alura-cursos/2610-fullstack-react/blob/0f0ef4232ca5308e0fc0117681b0236336798e4c/src/componentes/Pesquisa/index.js
+REPO DO CURSO 1: https://github.com/alura-cursos/2610-fullstack-react/blob/0f0ef4232ca5308e0fc0117681b0236336798e4c/src/componentes/Pesquisa/index.js
+REPO DO CURSO 2: https://github.com/alura-cursos/alura-books-aulas/tree/aula1
 #####################
+
+############
+LINKS LEGAIS
+
+https://www.alura.com.br/artigos/async-await-no-javascript-o-que-e-e-quando-usar?_gl=1*pbjbw6*_ga*NTI1NTYzMTYxLjE2ODU3NDE5ODM.*_ga_59FP0KYKSM*MTY5MTE4ODI1OS45NS4xLjE2OTExOTA3NTcuMC4wLjA.*_fplc*YUUzejlERTIxcnpWQmRkc2dCNnJUTDhYN2NFMWEwQ05oblpBSVpSYUlrJTJCMlpwV05GY3F3UE9DN1c2aXM4RVVPV2xYayUyRnJRQlh5YlFBZnJrNDQlMkZseXN6b09obHVTZHlPJTJCOE5pZ1RYMlVYS1gzd1hSZ3l1VjUweVQlMkJtZEgyUSUzRCUzRA..
+
+https://www.alura.com.br/artigos/mongodb-o-banco-baseado-em-documentos?_gl=1*1q7ctkc*_ga*NTI1NTYzMTYxLjE2ODU3NDE5ODM.*_ga_59FP0KYKSM*MTY5MTI1ODM5NC45Ny4xLjE2OTEyNjM3MjguMC4wLjA.*_fplc*dDUlMkJvQnpXWDdVNWZ6NUxucm80VmRHT0t2JTJGU1V6eU91Z0tjb29yaEhFUDdsRkpoOHJqMFlUTUY2ZThoRmE2azBuQk1iY2hTZUVyQmQyYzJDOUlPMXdHVGNIbSUyRnJKb1pER2RuMkhtNGxiMTRaNHFLOVBoSDFsSFBQdjhrYmRBJTNEJTNE
+###########
 
 #####################
 MELHORAR O ESTILO DO SITE E TAMBÉM VER SE DÁ PRA USAR O CURSO DE NODE PARA COMPLEMENTAR ESTE

@@ -1,6 +1,5 @@
-import Header from './components/Header'
 import styled from 'styled-components'
-import SearchBar from './components/SearchBar'
+import SearchBar from '../components/SearchBar'
 
 const AppContainer = styled.div`
   width: 100vw;
@@ -9,14 +8,13 @@ const AppContainer = styled.div`
 `
 
 
-function App() {
+function Home() {
 
   return (
     <AppContainer>
-      <Header />
       <SearchBar />
     </AppContainer>
   )
 }
 
-export default App
+export default Home

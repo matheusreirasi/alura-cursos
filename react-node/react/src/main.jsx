@@ -1,7 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
+import Home from './routes/Home.jsx'
+import Favoritos from './routes/Favoritos.jsx'
 import { createGlobalStyle } from 'styled-components'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Header from './components/Header/index.jsx'
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -19,6 +22,14 @@ const GlobalStyle = createGlobalStyle`
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <GlobalStyle />
-    <App />
+    <BrowserRouter>
+    <Header />
+      <Routes>
+        <Route path='/' element={ <Home />}/>
+        <Route path='/categorias' element={<p> CATEGORIAS </p>}/>
+        <Route path='/favoritos' element={ <Favoritos /> }/>
+        <Route path='/estante' element={<p> MINHA ESTANTE</p>}/>
+      </Routes>
+    </BrowserRouter>
   </React.StrictMode>,
 )
