@@ -49,3 +49,55 @@ https://www.alura.com.br/artigos/rest-principios-e-boas-praticas
 	};
 Na continuação da segunda parte do curso foi utilizado async/await, no entanto para haver tratamento de erros e acertos da requisição/resposta tem que usar try/catch
     
+14- Explicando mais ainda o populate() citado no tópico 10, alguns livros possuem um autor cadastrado como o Harry Potter e outros não, como Jogos Vorazes. Ao usar a função populate() eu consigo preencher campos que fazem parte da informação do livro mas não necessariamente precisam estar ali. Por exemplo, o model de Livro contém uma chave chamada autor que aponta para o model Autor, assim a chave autor no model de Livro é um objeto contendo informações do autor daquele livro. Ao usar populate() num livro como Harry Potter eu consigo popular o campo autor com o nome do autor("nome" é uma chave no model Autor) ao invés de ter somente a chave do ObjectId (da forma como ele é salvo no model de Livro).
+Se eu não colocar populate() na função listarLivroId no livrosController por exemplo, eu terei como retorno algo parecido com isso:
+	{
+	"_id": "63d4432cab46515e33b84468",
+	"titulo": "Harry Potter e a pedra filosofal",
+	"autor": "63d466b458daa8fd2ab8a8df",
+	"editora": "Rocco",
+	"__v": 0,
+	"numeroPaginas": 208
+	}
+Com o populate() o retorno é isso:
+	{
+	"_id": "63d4432cab46515e33b84468",
+	"titulo": "Harry Potter e a pedra filosofal",
+	"autor": {
+		"_id": "63d466b458daa8fd2ab8a8df",
+		"nome": "J. K. Rowling"
+	},
+	"editora": "Rocco",
+	"__v": 0,
+	"numeroPaginas": 208
+	}
+
+15- No middleware ErrorHandler é necessário saber um pouco a mais de MongoDb e mongoose para ter aquele retorno no caso de estar faltando algum valor obrigatório do banco de dados.
+
+16- Object.values utilizado no middleware ErrorHandler é um método Javascript que serve para iterar por valores do objeto passado dentro da função. Ele retorna um array contendo os valores.
+
+17- A mensagem personalizada que o usuário recebe ao preencher algum campo faltando, como nome do autor por exemplo, só é possível devido a mensagem inserida no model do Autor. Isso é possível para qualquer model e eu fiz isso para Livro também, se todos os campos (como titulo, autor ou editora por exemplo) estiverem vazios será retornada todas as mensagens personalizadas dizendo o que está faltando. 
+
+18- A pasta de errors cria os tipos de erros e os middlewares enviam os erros para o servidor. Desse jeito eu consigo usar o erro 404 ou 301 para diversos middleware que eu criar.
+
+19- O erro ValidationError é uma extensão de BadRequest pois possui o mesmo código status (400) e também são retornos do mongoose.Error.
+
+20- Quando é criada uma classe (como é feito nos arquivos da pasta errors) deve-se colocar um constructor, quando esse constructor tem algum parâmetro dentro quer dizer que no outro local que essa classe for usada deverá ter algum valor dentro dessa classe. Isso ocorre com o erro ValidationError que recebe uma parâmetro no arquivo src/middleware/ErrorHandler.js, porém não ocorre essa necessidade de passar um parâmetro na classe BadRequest usada nesse mesmo arquivo.
+
+21- Antes a classe ValidationError retornava o mesmo erro que BadRequest, isso ocorria porque eu inseria embutido dentro do super da classe BadRequest a mensagem de erro de parâmetro incorreto. Porém classes tem que ser usadas da forma mais abstrata possível e quando eu passo para o objeto super() a mensagem de erro diretamente, outras classes que fizerem uso de classe (no caso ValidationError que é uma extensão de BadRequest) receberão os mesmos valores da classe "mãe". A solução foi criar a mensagem fora do objeto super().
+
+22- Os métodos do MongoDb retornam null caso suas condições não são estabelecidas.
+
+23- No model é possível inserir outros validadores como máximo, mínimo ou mensagens. Além disso é possível retornar mensagens com valores dinâmicos (OLHAR O MODEL DE LIVRO).
+
+24- Não entendi ao certo por que colocar validate dentro do set do mongoose no arquivo src/models/ValidadorGlobal faz qualquer campo de qualquer model entender que está falando daquele exato campo e não o campo validate (já que ele que tá escrito dentro do set do mongoose no arquivo)
+
+25- No arquivo src/models/ValidadorGlobal foi utilizado uma função para retornar qual campo que o usuário inseriu está em branco. Antes eu tinha feito sem passar o objeto path dentro do parâmetro da função; tinha colocado somente o path sem os colchetes e tive como retorno no Insomnia o seguinte:
+	"O campo [object Object] foi fornecido em branco"
+Esse retorno [object Object] acontece com frequência no Javascript, tentarei colocar os valores como objeto a partir de agora quando receber essa resposta.
+
+26- O workflow para entender a validação global é o seguinte:
+	model de Autor >> arquivo ValidadorGlobal.js >> index.js do arquivo de models >> controller de Autores.
+Primeiro vem o model de Autor antes de ValidadorGlobal pois começamos pelos valores que o banco de dados vai receber para podermos entender todo o sentido do projeto. Se começar pelo ValidadorGlobal não irei saber o que quero validar e nem o por que.
+
+27- Eu usei o middleware de paginar somente em autores para ver a diferença e saber sua lógica, no entanto um middleware como esse deve ser usado em qualquer rota que seja necessário criar uma paginação.

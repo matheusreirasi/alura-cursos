@@ -1,58 +1,101 @@
-import autores from "../models/Autor.js";
+import NotFound from "../errors/NotFound.js";
+import {autores} from "../models/index.js";
 
 class AutorController {
-	static listarAutores = async (req, res) => {
+	static listarAutores = async (req, res, next) => {
 		
 		try {
-			const autoresResultado = await autores.find();
-			res.status(200).json(autoresResultado);		
+			const autoresResultado = autores.find();
+			req.resultado = autoresResultado;
+			next();
+			// res.status(200).json(autoresResultado);		
 		} catch (error) {
-			res.status(500).send({message: "Erro interno"});
+			next(error);
 		}
+
 
 		// autores.find((err, autores) =>{
 		// 	res.status(200).json(autores);
 		// });
 	};
 
-	static listarAutorId = (req, res) => {
+	static listarAutorId = async (req, res, next) => {
 		const id = req.params.id;
+		
+		try {
+			const autor = await autores.findById(id);
 
-		autores.findById(id, (err, autores) => {
-			if (err) return res.status(400).send(err);
-			else {res.status(200).send(autores);}
-		});
+			autor !== null
+				? res.status(200).send(autor)
+				: next(new NotFound("ID não encontrado.")); //somente ocorre se houver quantidade correta de dígitos(12 ou 24) no ID e todos forem hexadecimais.
+
+		} catch (error) {
+			next(error);
+		}
+
+		// autores.findById(id, (err, autores) => {
+		// 	if (err) return res.status(400).send(err);
+		// 	else {res.status(200).send(autores);}
+		// });
 	};
 
-	static cadastrarAutor = (req, res) => {
+	static cadastrarAutor = async (req, res, next) => {
 		const novoAutor = new autores(req.body);
 
-		novoAutor.save((err) => {
-			if (err) {
-				res.status(500).send(err);
-			} else {
-				res.status(201).send(novoAutor.toJSON());
-			}
-		});
+		try {
+			const autorCadastrado = await novoAutor.save();
+			res.status(201).send(autorCadastrado.toJSON());
+		} catch (error) {
+			next(error);
+		}
+		
+		// novoAutor.save((err) => {
+		// 	if (err) {
+		// 		res.status(500).send(err);
+		// 	} else {
+		// 		res.status(201).send(novoAutor.toJSON());
+		// 	}
+		// });
 	};
 
-	static atualizarAutor = (req, res) => {
+	static atualizarAutor = async(req, res, next) => {
 		const id = req.params.id;
 
-		autores.findByIdAndUpdate(id, {$set: req.body}, (err) => {
-			if (err) return res.status(500).send(err);
-			else {res.status(200).send("Autor atualizado com sucesso!");}
-		});
+		try {
+			const autorAtualizado = await autores.findByIdAndUpdate(id, {$set: req.body});
+
+			autorAtualizado !== null
+				? res.status(200).send({message: "Atualizado com sucesso!"})
+				: next(new NotFound("ID não encontrado."));
+
+		} catch (error) {
+			next(error);
+		}
+
+		// autores.findByIdAndUpdate(id, {$set: req.body}, (err) => {
+		// 	if (err) return res.status(500).send(err);
+		// 	else {res.status(200).send("Autor atualizado com sucesso!");}
+		// });
 	};
 
-
-	static removerAutor = (req, res) => {
+	static removerAutor = async (req, res, next) => {
 		const id = req.params.id;
 
-		autores.findByIdAndDelete(id, err => {
-			if (err) return res.status(500).send(err);
-			else {res.status(200).send("Autor excluído");}
-		});
+		try {
+			const autorDeletado = await autores.findByIdAndDelete(id);
+
+			autorDeletado !== null
+				? res.status(200).send({message: "Autor excluído com sucesso!"})
+				: next(new NotFound("ID não encontrado."));
+				
+		} catch (error) {
+			next(error);
+		}
+
+		// autores.findByIdAndDelete(id, err => {
+		// 	if (err) return res.status(500).send(err);
+		// 	else {res.status(200).send("Autor excluído");}
+		// });
 	};
 }
 
